@@ -1,0 +1,243 @@
+═══════════════════════════════════════════════════════════════════════════════
+            🚀 COMO ENVIAR PARA CLAUDE CODE - QUICK START
+═══════════════════════════════════════════════════════════════════════════════
+
+Você tem 5 arquivos prontos em: /sessions/adoring-trusting-johnson/mnt/Yelly/
+
+PARA GERAR A HOMEPAGE, SIGA ESTES PASSOS:
+
+═══════════════════════════════════════════════════════════════════════════════
+OPÇÃO 1: INTERFACE WEB (MAIS FÁCIL)
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Abra: https://claude.com/claude-code
+   (ou app desktop do Claude)
+
+2. Crie uma nova conversa
+
+3. Clique em "+" para adicionar arquivos/contexto
+
+4. ADICIONE OS SEGUINTES ARQUIVOS COMO CONTEXTO:
+   ✅ yelly-taxas-v4.html (como TEMPLATE visual)
+   ✅ BRIEF_CLAUDE_CODE.md (instruções)
+   ✅ PROMPT_EXECUCAO_HOMEPAGE.md (conteúdo detalhado)
+
+5. COLE ESTE PROMPT EXATO:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+[COPIE E COLE ISTO NO CHAT]
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Você recebeu um briefing completo para gerar a homepage da Yelly.
+
+ARQUIVOS ENVIADOS:
+- yelly-taxas-v4.html (template visual - NÃO copie conteúdo, copie CSS/estrutura)
+- BRIEF_CLAUDE_CODE.md (instruções detalhadas)
+- PROMPT_EXECUCAO_HOMEPAGE.md (conteúdo exato de cada seção)
+
+TAREFA:
+Gere um arquivo HTML ÚNICO (yelly-homepage.html) com:
+
+1. ✅ 11 seções (Hero → CTA Final → Footer)
+2. ✅ CSS inline (copie do yelly-taxas-v4.html, adicione o necessário)
+3. ✅ JS inline (calculadora + accordion FAQ + sticky CTA)
+4. ✅ Mobile-first responsive
+5. ✅ Sem dependências externas (só Google Fonts)
+6. ✅ Mantém padrão visual 100% de yelly-taxas-v4.html
+
+ESTRUTURA EXATA:
+[Veja BRIEF_CLAUDE_CODE.md seções "Estrutura da Homepage"]
+
+CONTEÚDO EXATO:
+[Veja BRIEF_CLAUDE_CODE.md seção "Conteúdo Exato (Copy/Paste Direto)"]
+
+DESIGN SYSTEM:
+[Veja BRIEF_CLAUDE_CODE.md seção "Design System"]
+
+Gere o arquivo HTML completo e me mostre o código.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+6. Claude Code vai gerar o arquivo
+
+7. Copie o código gerado
+
+8. Crie o arquivo:
+   /sessions/adoring-trusting-johnson/mnt/Yelly/yelly-homepage.html
+
+9. Cole o código dentro
+
+10. Abra no navegador para testar
+
+═══════════════════════════════════════════════════════════════════════════════
+OPÇÃO 2: CLI (Se preferir usar terminal)
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Abra terminal
+
+2. Execute este comando:
+
+claude code create \
+  --name "Homepage Yelly" \
+  --type "html" \
+  --prompt "Gere a homepage Yelly seguindo BRIEF_CLAUDE_CODE.md usando yelly-taxas-v4.html como template" \
+  --context "yelly-taxas-v4.html" \
+  --context "BRIEF_CLAUDE_CODE.md" \
+  --context "PROMPT_EXECUCAO_HOMEPAGE.md" \
+  --output "/sessions/adoring-trusting-johnson/mnt/Yelly/yelly-homepage.html"
+
+3. Claude vai gerar automaticamente
+
+4. Abra no navegador
+
+═══════════════════════════════════════════════════════════════════════════════
+OPÇÃO 3: MANUAL (Você cria na mão)
+═══════════════════════════════════════════════════════════════════════════════
+
+Se preferir, você pode:
+
+1. Copiar yelly-taxas-v4.html inteiro
+2. Renomear para yelly-homepage.html
+3. REMOVER seções específicas:
+   - Urgency Badge (linha ~59-66)
+   - Plans Section (linha ~337-348)
+   - Rates Table (linha ~350-363)
+   - Machines Section (linha ~365-376)
+   - Simulador (linha ~378-414)
+   - Benefits, Proof, FAQ, Sticky CTA (MANTER)
+
+4. ADICIONAR novas seções seguindo PROMPT_EXECUCAO_HOMEPAGE.md
+
+5. TESTAR no navegador
+
+═══════════════════════════════════════════════════════════════════════════════
+O QUE FAZER APÓS GERAR
+═══════════════════════════════════════════════════════════════════════════════
+
+1. TESTE NO NAVEGADOR
+   □ Abre sem erro?
+   □ Todas seções visíveis?
+   □ Botões funcionam?
+   □ Responsivo em mobile?
+   □ Calculadora calcula?
+   □ FAQ abre/fecha?
+
+2. COMPARE COM YELLY-TAXAS-V4.HTML
+   □ Mesmas cores?
+   □ Mesma tipografia?
+   □ Mesmo spacing?
+   □ Mesmos componentes (cards, badges, etc)?
+
+3. VALIDE CONTEÚDO
+   □ Todos headlines corretos?
+   □ Todos CTAs com texto certo?
+   □ Links funcionam?
+   □ Imagens carregam?
+
+4. OTIMIZAÇÕES (Phase 2+)
+   □ Minify CSS/JS
+   □ Lazy load imagens
+   □ A/B testes
+   □ Analytics
+
+═══════════════════════════════════════════════════════════════════════════════
+ARQUIVOS DE REFERÊNCIA (Não modifique, só consulte)
+═══════════════════════════════════════════════════════════════════════════════
+
+📄 ARQUITETURA_COMPLETA_SITE_YELLY.md
+   └─ Use para: Entender fluxo geral do site
+   └─ Seção "Homepage (/)" para estrutura
+   └─ Seção "Padrão Visual" para design system
+
+📄 PROMPT_EXECUCAO_HOMEPAGE.md
+   └─ Use para: CONTEÚDO EXATO de cada seção
+   └─ Seções 1-11 = conteúdo linha por linha
+   └─ Componentes Interativos = JavaScript specs
+
+📄 BRIEF_CLAUDE_CODE.md
+   └─ Use para: INSTRUÇÕES DETALHADAS
+   └─ Escopo Phase 1
+   └─ Design System
+   └─ Conteúdo Exato (copy/paste)
+
+📄 yelly-taxas-v4.html
+   └─ Use para: TEMPLATE VISUAL/CSS
+   └─ NÃO copie conteúdo (taxas, máquinas, etc)
+   └─ COPIE: CSS, componentes, estrutura
+   └─ REUTILIZE: .hero, .container, .sticky-cta, etc
+
+═══════════════════════════════════════════════════════════════════════════════
+CHECKLIST FINAL
+═══════════════════════════════════════════════════════════════════════════════
+
+Após geração, você deve ter:
+
+✅ Arquivo: /sessions/adoring-trusting-johnson/mnt/Yelly/yelly-homepage.html
+   ├─ Tamanho: ~900-1200 linhas
+   ├─ Formato: HTML single-file
+   ├─ CSS: Inline (não externo)
+   └─ JS: Inline (não externo)
+
+✅ Funcionalidades:
+   ├─ Calculadora de economia funciona
+   ├─ FAQ accordion abre/fecha
+   ├─ Sticky CTA sempre visível
+   ├─ WhatsApp flutuante presente
+   ├─ Mobile responsivo
+   └─ Sem erros no console
+
+✅ Visual:
+   ├─ Cores corretas (#FFD600, #1a1a2e, etc)
+   ├─ Tipografia: Outfit + Inter
+   ├─ Spacing correto (32px sections)
+   ├─ Cards com hover effects
+   ├─ Botões com estilos certos
+   └─ Imagens carregam
+
+✅ Pronto para:
+   ├─ Deploy em servidor
+   ├─ Testes A/B
+   ├─ Otimizações
+   ├─ Analytics setup
+   └─ Phase 2 (prova social + comparativo)
+
+═══════════════════════════════════════════════════════════════════════════════
+❓ DÚVIDAS COMUNS
+═══════════════════════════════════════════════════════════════════════════════
+
+P: O arquivo vai ter muitas linhas?
+R: Sim, ~900-1200 linhas (com formatação e comentários). É normal.
+
+P: Posso remover a calculadora ou FAQ?
+R: Não para Phase 1 MVP. Não pula nenhuma seção.
+
+P: E se a imagem machine-smart.png não existir?
+R: Claude vai usar placeholder ou background color. Depois você troca.
+
+P: Preciso testar em todos os browsers?
+R: Phase 1 não. Phase 2+. Por enquanto: Chrome/Firefox/Safari básico.
+
+P: Quando começar a otimizar/minificar?
+R: Phase 2 em diante. Phase 1 é só desenvolver.
+
+P: Já é para integrar WhatsApp/Chat?
+R: Não. Phase 1 só tem ícone. Chat real é Phase 3+.
+
+P: Quando fazer analytics?
+R: Phase 2+. Phase 1 é só conteúdo/estrutura/função.
+
+═══════════════════════════════════════════════════════════════════════════════
+📞 PRÓXIMO PASSO
+═══════════════════════════════════════════════════════════════════════════════
+
+1. Envie conforme uma das 3 opções acima
+
+2. Aguarde Claude Code gerar
+
+3. Teste a homepage no navegador
+
+4. Faça ajustes pequenos se necessário
+
+5. Passe para Phase 2 (prova social + comparativo + outras seções)
+
+═══════════════════════════════════════════════════════════════════════════════

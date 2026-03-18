@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Yelly - Taxas e Maquininhas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --font-body: 'Inter', sans-serif;
+    --font-display: 'Outfit', sans-serif;
+    --yellow: #FFD600;
+    --yellow-light: #FFF8CC;
+    --yellow-hover: #ffe333;
+    --dark: #1a1a2e;
+    --dark-800: #16213e;
+    --gray-50: #fafafa;
+    --gray-100: #f5f5f5;
+    --gray-200: #e5e5e5;
+    --gray-300: #d4d4d4;
+    --gray-400: #a3a3a3;
+    --gray-500: #737373;
+    --gray-600: #525252;
+    --gray-900: #171717;
+    --bg: #fafaf8;
+    --radius: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--gray-900);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--yellow);
+    color: var(--gray-900);
+  }
+
+  /* ── HERO BACKGROUND ── */
+  .hero-bg {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%;
+    height: 60vh;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+  }
+  .hero-bg .overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(250,250,248,0.8) 60%, var(--bg) 100%);
+  }
+
+  /* ── MAIN CONTAINER ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+
+  @media (min-width: 640px) { .container { padding: 0 24px; } }
+  @media (min-width: 1024px) { .container { padding: 0 32px; } }
+
+  /* ── HERO SECTION ── */
+  .hero {
+    text-align: center;
+    max-width: 768px;
+    margin: 0 auto;
+    padding-top: 80px;
+    padding-bottom: 48px;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--yellow-light);
+    color: var(--gray-900);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+  }
+  .hero-badge svg { color: var(--yellow); }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    color: var(--gray-300);
+    margin-bottom: 20px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gray-900);
+  }
+
+  .hero p {
+    font-size: 17px;
+    color: var(--gray-500);
+    max-width: 480px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  /* ── STEP HEADERS ── */
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+  .step-number {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--dark);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .step-title {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+
+  /* ── MACHINES GRID ── */
+  .section-machines { margin-bottom: 64px; }
+
+  .machines-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 768px) {
+    .machines-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  }
+
+  .machine-card {
+    background: #fff;
+    border: 2px solid var(--gray-200);
+    border-radius: var(--radius);
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  .machine-card:hover { border-color: var(--gray-300); box-shadow: 0 4px 24px rgba(0,0,0,0.06); }
+  .machine-card.selected {
+    border-color: var(--yellow);
+    box-shadow: 0 0 0 1px var(--yellow), 0 8px 32px rgba(255,214,0,0.12);
+  }
+
+  .machine-badge {
+    position: absolute;
+    top: -12px;
+    right: 16px;
+    background: var(--yellow);
+    color: var(--gray-900);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 4px 14px;
+    border-radius: 8px;
+    text-transform: uppercase;
+  }
+
+  .machine-img {
+    width: 100%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .machine-img img {
+    max-height: 140px;
+    max-width: 140px;
+    object-fit: contain;
+  }
+
+  .machine-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+
+  .machine-price {
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .machine-price .installment {
+    font-size: 14px;
+    color: var(--gray-500);
+  }
+  .machine-price .installment strong {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--gray-900);
+  }
+  .machine-price .cash {
+    font-size: 13px;
+    color: var(--gray-400);
+    margin-top: 2px;
+  }
+
+  .machine-features {
+    list-style: none;
+    margin: 0 0 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-100);
+  }
+  .machine-features li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--gray-600);
+    padding: 5px 0;
+  }
+  .machine-features li svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .machine-card.selected .machine-features li svg { color: var(--yellow); }
+  .machine-card:not(.selected) .machine-features li svg { color: var(--gray-400); }
+
+  .machine-btn {
+    margin-top: auto;
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    border: 2px solid var(--gray-200);
+    background: #fff;
+    color: var(--gray-600);
+  }
+  .machine-btn:hover { border-color: var(--gray-300); background: var(--gray-50); }
+  .machine-card.selected .machine-btn {
+    background: var(--dark);
+    color: #fff;
+    border-color: var(--dark);
+  }
+  .machine-card.selected .machine-btn:hover {
+    background: var(--dark-800);
+  }
+
+  /* ── PLAN SELECTOR (dentro do step 2) ── */
+  .section-plans { margin-bottom: 24px; }
+
+  .plan-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .plan-tab {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid var(--gray-200);
+    background: #fff;
+    color: var(--gray-600);
+    transition: all 0.2s;
+  }
+  .plan-tab:hover { border-color: var(--gray-300); }
+  .plan-tab.active {
+    background: var(--dark);
+    color: #fff;
+    border-color: var(--dark);
+  }
+  .plan-desc {
+    text-align: center;
+    font-size: 14px;
+    color: var(--gray-500);
+    margin-bottom: 32px;
+  }
+  .plan-desc strong { color: var(--gray-900); }
+
+  /* ── COMPARISON TABLE ── */
+  .section-rates { margin-bottom: 80px; }
+
+  .rates-table-wrap {
+    background: #fff;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--gray-200);
+    overflow-x: auto;
+  }
+
+  .rates-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 500px;
+  }
+
+  .rates-table thead th {
+    padding: 16px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 2px solid var(--gray-100);
+    background: #fff;
+    color: var(--gray-900);
+  }
+  .rates-table thead th:first-child {
+    text-align: left;
+    color: var(--gray-500);
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .rates-table thead th.highlighted {
+    background: var(--yellow);
+    color: var(--gray-900);
+    position: relative;
+    border-radius: 12px 12px 0 0;
+  }
+  .rates-table thead th.highlighted .sub {
+    display: block;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+    margin-top: 2px;
+  }
+
+  .rates-table tbody td {
+    padding: 14px 20px;
+    font-size: 15px;
+    text-align: center;
+    border-bottom: 1px solid var(--gray-100);
+    color: var(--gray-600);
+  }
+  .rates-table tbody td:first-child {
+    text-align: left;
+    font-weight: 500;
+    color: var(--gray-900);
+  }
+  .rates-table tbody td.highlighted {
+    background: var(--yellow-light);
+    font-weight: 700;
+    color: var(--gray-900);
+  }
+  .rates-table tbody tr:last-child td { border-bottom: none; }
+  .rates-table tbody tr:last-child td.highlighted {
+    border-radius: 0 0 12px 12px;
+  }
+
+  /* ── STICKY CTA BAR ── */
+  .sticky-cta {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    background: var(--dark);
+    color: #fff;
+    border-radius: 16px;
+    padding: 14px 20px 14px 28px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.25);
+    transition: all 0.3s ease;
+    max-width: 460px;
+    width: calc(100% - 32px);
+  }
+  .sticky-cta .label {
+    font-size: 13px;
+    color: var(--gray-400);
+    white-space: nowrap;
+  }
+  .sticky-cta .chosen {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--yellow);
+  }
+  .sticky-cta .cta-btn {
+    margin-left: auto;
+    background: var(--yellow);
+    color: var(--gray-900);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+  }
+  .sticky-cta .cta-btn:hover { background: var(--yellow-hover); }
+
+  /* ── TRUST BAR ── */
+  .trust-section {
+    padding: 48px 0 80px;
+  }
+  .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    text-align: center;
+  }
+  @media (max-width: 640px) {
+    .trust-grid { grid-template-columns: 1fr; gap: 24px; }
+  }
+  .trust-item svg {
+    width: 28px;
+    height: 28px;
+    color: var(--gray-400);
+    margin: 0 auto 10px;
+  }
+  .trust-item h3 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--gray-900);
+  }
+  .trust-item p {
+    font-size: 14px;
+    color: var(--gray-500);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    animation: fadeUp 0.6s ease forwards;
+  }
+  .fade-up-d1 { animation-delay: 0.1s; opacity: 0; }
+  .fade-up-d2 { animation-delay: 0.2s; opacity: 0; }
+  .fade-up-d3 { animation-delay: 0.3s; opacity: 0; }
+</style>
+</head>
+<body>
+
+<!-- Hero Background -->
+<div class="hero-bg">
+  <img src="./yelly replit/Yelly Taxas_files/hero-mesh.png" alt="">
+  <div class="overlay"></div>
+</div>
+
+<div class="container">
+
+  <!-- ── HERO ── -->
+  <section class="hero">
+    <div class="fade-up">
+      <div class="hero-badge">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Transparência Total
+      </div>
+    </div>
+    <h1 class="fade-up fade-up-d1">Taxas simples,<br><em>vendas sem limite.</em></h1>
+    <p class="fade-up fade-up-d2">Escolha a maquininha ideal para o seu negócio e veja exatamente quanto você vai pagar em cada venda. Sem entrelinhas.</p>
+  </section>
+
+  <!-- ── STEP 1: ESCOLHA SUA MAQUININHA ── -->
+  <section class="section-machines">
+    <div class="step-header fade-up fade-up-d3">
+      <div class="step-number">1</div>
+      <h2 class="step-title">Escolha sua maquininha</h2>
+    </div>
+
+    <div class="machines-grid">
+      <!-- Yelly Mini -->
+      <div class="machine-card" onclick="selectMachine('mini')">
+        <div class="machine-img">
+          <img src="./yelly replit/Yelly Taxas_files/machine-smart.png" alt="Yelly Mini">
+        </div>
+        <div class="machine-name">Yelly Mini</div>
+        <div class="machine-price">
+          <div class="installment">12x R$ <strong>24,75</strong></div>
+          <div class="cash">ou R$ 297,00 à vista</div>
+        </div>
+        <ul class="machine-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Conexão via Bluetooth</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Comprovante por SMS</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bateria de longa duração</li>
+        </ul>
+        <button class="machine-btn" id="btn-mini">Ver taxas</button>
+      </div>
+
+      <!-- Yelly Pro (MAIS PEDIDA) -->
+      <div class="machine-card selected" onclick="selectMachine('pro')">
+        <span class="machine-badge">MAIS PEDIDA</span>
+        <div class="machine-img">
+          <img src="./yelly replit/Yelly Taxas_files/machine-plus.png" alt="Yelly Pro">
+        </div>
+        <div class="machine-name">Yelly Pro</div>
+        <div class="machine-price">
+          <div class="installment">12x R$ <strong>33,08</strong></div>
+          <div class="cash">ou R$ 397,00 à vista</div>
+        </div>
+        <ul class="machine-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Conexão Wi-Fi e 4G</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Imprime comprovante</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Visor touchscreen</li>
+        </ul>
+        <button class="machine-btn" id="btn-pro">Selecionada</button>
+      </div>
+
+      <!-- Yelly Smart -->
+      <div class="machine-card" onclick="selectMachine('smart')">
+        <div class="machine-img">
+          <img src="./yelly replit/Yelly Taxas_files/machine-pro.png" alt="Yelly Smart">
+        </div>
+        <div class="machine-name">Yelly Smart</div>
+        <div class="machine-price">
+          <div class="installment">12x R$ <strong>41,42</strong></div>
+          <div class="cash">ou R$ 497,00 à vista</div>
+        </div>
+        <ul class="machine-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Android integrado</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bateria ultra durável</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Wi-Fi e 4G integrados</li>
+        </ul>
+        <button class="machine-btn" id="btn-smart">Ver taxas</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── STEP 2: COMPARE AS TAXAS ── -->
+  <section class="section-rates">
+    <div class="step-header">
+      <div class="step-number">2</div>
+      <div>
+        <h2 class="step-title">Compare as taxas</h2>
+        <p style="font-size:14px; color:var(--gray-500); margin-top:4px;">
+          As taxas variam de acordo com o plano escolhido. <strong id="plan-showing">Exibindo taxas para Max.</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- Plan tabs -->
+    <div class="section-plans">
+      <div class="plan-tabs">
+        <button class="plan-tab" onclick="selectPlan('flash')">Flash — Receba na Hora</button>
+        <button class="plan-tab active" onclick="selectPlan('max')">Max — Receba em 1 Dia</button>
+        <button class="plan-tab" onclick="selectPlan('economic')">Economic — Conforme Parcelas</button>
+      </div>
+    </div>
+
+    <!-- Comparison table -->
+    <div class="rates-table-wrap">
+      <table class="rates-table" id="rates-table">
+        <thead>
+          <tr>
+            <th>Modalidade</th>
+            <th>Flash</th>
+            <th class="highlighted">
+              Max
+              <span class="sub">Sua Escolha</span>
+            </th>
+            <th>Economic</th>
+          </tr>
+        </thead>
+        <tbody id="rates-tbody">
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── TRUST SECTION ── -->
+  <section class="trust-section">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+        <h3>Sem mensalidade</h3>
+        <p>Você só paga quando vender.</p>
+      </div>
+      <div class="trust-item">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+        <h3>Aprovação em minutos</h3>
+        <p>Comece a vender hoje mesmo.</p>
+      </div>
+      <div class="trust-item">
+        <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25z"/></svg>
+        <h3>Suporte 7 dias</h3>
+        <p>Atendimento humanizado via WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ── STICKY CTA ── -->
+<div class="sticky-cta" id="sticky-cta">
+  <div>
+    <div class="label">Você escolheu:</div>
+    <div class="chosen" id="cta-chosen">Yelly Pro · Max</div>
+  </div>
+  <button class="cta-btn" onclick="window.location.href='#'">
+    Pedir minha maquininha
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+<script>
+// ── DATA ──
+const machineNames = { mini: 'Yelly Mini', pro: 'Yelly Pro', smart: 'Yelly Smart' };
+const planLabels = { flash: 'Flash', max: 'Max', economic: 'Economic' };
+const planDescs = {
+  flash: 'Recebimento na hora',
+  max: 'Recebimento em 1 dia útil',
+  economic: 'Recebimento conforme parcelas'
+};
+
+const rates = {
+  flash: {
+    'Pix':               ['0,75%', '0,75%', '0,75%'],
+    'Débito':            ['1,39%', '1,39%', '1,39%'],
+    'Crédito à vista':   ['3,15%', '3,15%', '3,15%'],
+    'Crédito 2 a 6x':   ['5,16% – 8,00%', '5,16% – 8,00%', '5,16% – 8,00%'],
+    'Crédito 7 a 12x':  ['9,24% – 12,61%', '9,24% – 12,61%', '9,24% – 12,61%']
+  },
+  max: {
+    'Pix':               ['0,75%', '0,75%', '0,75%'],
+    'Débito':            ['1,39%', '1,39%', '1,39%'],
+    'Crédito à vista':   ['2,91%', '2,91%', '2,91%'],
+    'Crédito 2 a 6x':   ['4,68% – 7,69%', '4,68% – 7,69%', '4,68% – 7,69%'],
+    'Crédito 7 a 12x':  ['8,47% – 12,01%', '8,47% – 12,01%', '8,47% – 12,01%']
+  },
+  economic: {
+    'Pix':               ['0,75%', '0,75%', '0,75%'],
+    'Débito':            ['1,09%', '1,09%', '1,09%'],
+    'Crédito à vista':   ['2,20%', '2,20%', '2,20%'],
+    'Crédito 2 a 6x':   ['2,45%', '2,45%', '2,45%'],
+    'Crédito 7 a 12x':  ['2,78%', '2,78%', '2,78%']
+  }
+};
+
+let currentMachine = 'pro';
+let currentPlan = 'max';
+
+function selectMachine(id) {
+  currentMachine = id;
+
+  // Update cards
+  document.querySelectorAll('.machine-card').forEach(c => c.classList.remove('selected'));
+  event.currentTarget.classList.add('selected');
+
+  // Update buttons
+  document.querySelectorAll('.machine-btn').forEach(b => b.textContent = 'Ver taxas');
+  document.getElementById('btn-' + id).textContent = 'Selecionada';
+
+  updateCTA();
+}
+
+function selectPlan(plan) {
+  currentPlan = plan;
+
+  // Update tabs
+  document.querySelectorAll('.plan-tab').forEach(t => t.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+
+  // Update showing text
+  document.getElementById('plan-showing').innerHTML =
+    'Exibindo taxas para <strong>' + planLabels[plan] + '</strong>.';
+
+  // Update table header
+  const ths = document.querySelectorAll('.rates-table thead th');
+  ths.forEach((th, i) => {
+    if (i === 0) return;
+    th.classList.remove('highlighted');
+    th.innerHTML = ['Flash','Max','Economic'][i-1];
+  });
+  const planIdx = { flash: 1, max: 2, economic: 3 }[plan];
+  ths[planIdx].classList.add('highlighted');
+  ths[planIdx].innerHTML = planLabels[plan] + '<span class="sub">Sua Escolha</span>';
+
+  renderRates();
+  updateCTA();
+}
+
+function renderRates() {
+  const data = rates[currentPlan];
+  const tbody = document.getElementById('rates-tbody');
+  const planIdx = { flash: 0, max: 1, economic: 2 }[currentPlan];
+  tbody.innerHTML = '';
+
+  for (const [modalidade, values] of Object.entries(data)) {
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td>' + modalidade + '</td>';
+    values.forEach((v, i) => {
+      const td = document.createElement('td');
+      td.textContent = v;
+      if (i === planIdx) td.classList.add('highlighted');
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  }
+}
+
+function updateCTA() {
+  document.getElementById('cta-chosen').textContent =
+    machineNames[currentMachine] + ' · ' + planLabels[currentPlan];
+}
+
+// Init
+renderRates();
+</script>
+
+</body>
+</html>

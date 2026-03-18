@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Yelly - Escolha sua Maquininha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-body: 'Inter', sans-serif;
+  --font-display: 'Outfit', sans-serif;
+  --yellow: #FFD600;
+  --yellow-light: #FFF8CC;
+  --yellow-hover: #ffe333;
+  --yellow-bg: #fffce6;
+  --dark: #1a1a2e;
+  --dark-800: #16213e;
+  --green: #22c55e;
+  --green-light: #dcfce7;
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-900: #171717;
+  --bg: #fafaf8;
+  --radius: 16px;
+  --radius-sm: 12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--gray-900);line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--yellow);color:var(--gray-900)}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+
+/* ── LAYOUT ── */
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+@media(min-width:640px){.container{padding:0 24px}}
+@media(min-width:1024px){.container{padding:0 32px}}
+
+/* ── HERO BG ── */
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:55vh;z-index:-1;overflow:hidden;pointer-events:none}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.45}
+.hero-bg .ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 0%,rgba(250,250,248,.85) 65%,var(--bg) 100%)}
+
+/* ── HERO ── */
+.hero{text-align:center;max-width:720px;margin:0 auto;padding:72px 0 40px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--yellow-light);color:var(--gray-900);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;border-radius:100px;margin-bottom:20px}
+.hero h1{font-family:var(--font-display);font-size:clamp(32px,5.5vw,64px);font-weight:800;line-height:1.05;letter-spacing:-.025em;color:var(--gray-300);margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--gray-900)}
+.hero p{font-size:17px;color:var(--gray-500);max-width:460px;margin:0 auto;line-height:1.65}
+
+/* ── STEP HEADERS ── */
+.step-header{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--dark);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-family:var(--font-display);font-size:22px;font-weight:700}
+.step-sub{font-size:14px;color:var(--gray-500);margin-top:2px}
+.step-sub strong{color:var(--gray-900)}
+
+/* ══════════════════════════════════════
+   SECTION 1 — PLANOS
+   ══════════════════════════════════════ */
+.section-plans{margin-bottom:56px}
+
+/* recebimento toggle */
+.recv-toggle{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.recv-label{font-size:14px;font-weight:500;color:var(--gray-600);margin-right:4px}
+.recv-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:100px;border:1.5px solid var(--gray-200);background:#fff;color:var(--gray-600);font-size:13px;font-weight:500;transition:all .2s}
+.recv-btn:hover{border-color:var(--gray-300)}
+.recv-btn.active{border-color:var(--dark);background:var(--dark);color:#fff}
+.recv-btn svg{width:16px;height:16px}
+
+/* plan cards row */
+.plans-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:768px){.plans-row{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
+
+.plan-card{background:#fff;border:2px solid var(--gray-200);border-radius:var(--radius);padding:28px 24px;cursor:pointer;transition:all .25s;position:relative}
+.plan-card:hover{border-color:var(--gray-300);box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.plan-card.selected{border-color:var(--yellow);box-shadow:0 0 0 1px var(--yellow),0 6px 28px rgba(255,214,0,.12)}
+
+.plan-card .radio{position:absolute;top:20px;right:20px;width:20px;height:20px;border-radius:50%;border:2px solid var(--gray-300);transition:all .2s;display:flex;align-items:center;justify-content:center}
+.plan-card.selected .radio{border-color:var(--yellow);background:var(--yellow)}
+.plan-card.selected .radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+
+.plan-name{font-family:var(--font-display);font-size:22px;font-weight:700;margin-bottom:12px}
+
+.plan-rates-row{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.plan-rate-box{text-align:center;flex:1;min-width:70px}
+.plan-rate-val{font-family:var(--font-display);font-size:26px;font-weight:800;line-height:1.1}
+.plan-rate-val sub{font-size:14px;font-weight:600;vertical-align:baseline}
+.plan-rate-lbl{font-size:11px;color:var(--gray-500);text-transform:uppercase;letter-spacing:.03em;margin-top:2px}
+
+.plan-highlight{background:var(--yellow-bg);color:var(--gray-700);font-size:13px;font-weight:500;padding:10px 14px;border-radius:var(--radius-sm);text-align:center;margin-bottom:12px;line-height:1.4}
+.plan-note{font-size:12px;color:var(--gray-400);text-align:center}
+.plan-link{color:var(--yellow);font-weight:600;text-decoration:underline;cursor:pointer;font-size:13px}
+
+/* ══════════════════════════════════════
+   SECTION 2 — MAQUININHAS
+   ══════════════════════════════════════ */
+.section-machines{margin-bottom:64px}
+
+.machines-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:900px){.machines-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
+
+.m-card{background:#fff;border:2px solid var(--gray-200);border-radius:var(--radius);padding:24px;text-align:center;transition:all .25s;display:flex;flex-direction:column;position:relative}
+.m-card:hover{border-color:var(--gray-300);box-shadow:0 4px 20px rgba(0,0,0,.05)}
+
+.m-card .m-img{height:170px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.m-card .m-img img{max-height:155px;object-fit:contain}
+
+.m-card .m-name{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:2px}
+.m-card .m-name span{font-weight:400;color:var(--gray-400)}
+.m-card .m-desc{font-size:13px;color:var(--gray-500);margin-bottom:12px;line-height:1.4}
+
+.m-discount{display:inline-block;background:var(--yellow-light);color:var(--gray-700);font-size:12px;font-weight:700;padding:4px 12px;border-radius:8px;margin-bottom:12px}
+
+.m-price-row{margin-bottom:14px}
+.m-price-old{font-size:13px;color:var(--gray-400);text-decoration:line-through}
+.m-price-new{font-size:14px;color:var(--gray-600)}
+.m-price-new strong{font-family:var(--font-display);font-size:32px;font-weight:800;color:var(--gray-900)}
+.m-price-cash{font-size:12px;color:var(--gray-400)}
+
+.m-shipping{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:var(--gray-500);margin-bottom:16px}
+.m-shipping svg{width:14px;height:14px;color:var(--gray-400)}
+
+.m-cta{width:100%;padding:13px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;border:none;transition:all .2s;background:var(--yellow);color:var(--gray-900);margin-bottom:16px}
+.m-cta:hover{background:var(--yellow-hover)}
+
+.m-features{list-style:none;text-align:left;border-top:1px solid var(--gray-100);padding-top:14px;margin-top:auto}
+.m-features li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray-600);padding:5px 0}
+.m-features li svg{width:16px;height:16px;flex-shrink:0;color:var(--gray-400)}
+
+/* ══════════════════════════════════════
+   SECTION 3 — SIMULADOR
+   ══════════════════════════════════════ */
+.section-sim{margin-bottom:72px}
+
+.sim-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:0;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+@media(max-width:768px){.sim-wrap{grid-template-columns:1fr}}
+
+.sim-left{padding:32px;border-right:1px solid var(--gray-100)}
+@media(max-width:768px){.sim-left{border-right:none;border-bottom:1px solid var(--gray-100)}}
+
+.sim-left label{display:block;font-size:12px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px}
+.sim-left select,.sim-left input{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:14px;color:var(--gray-900);background:#fff;margin-bottom:16px;appearance:auto;transition:border .2s}
+.sim-left select:focus,.sim-left input:focus{outline:none;border-color:var(--yellow)}
+
+.sim-right{padding:32px;display:flex;flex-direction:column;justify-content:center}
+
+.sim-rates-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.sim-rate-card{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--radius-sm);padding:16px}
+.sim-rate-card .label{font-size:12px;font-weight:600;color:var(--gray-500)}
+.sim-rate-card .val{font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--gray-900);line-height:1.2}
+.sim-rate-card .val sub{font-size:14px}
+.sim-rate-card .recv{font-size:12px;color:var(--gray-400);margin-top:2px}
+
+.sim-note{font-size:12px;color:var(--gray-400);line-height:1.5}
+
+/* ══════════════════════════════════════
+   SECTION 4 — BENEFICIOS VISUAIS
+   ══════════════════════════════════════ */
+.section-benefits{padding:56px 0;margin-bottom:16px}
+.section-benefits .heading{font-family:var(--font-display);font-size:clamp(24px,4vw,36px);font-weight:800;text-align:center;margin-bottom:40px;letter-spacing:-.02em}
+.section-benefits .heading em{font-style:italic;color:var(--gray-400)}
+
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:768px){.benefits-grid{grid-template-columns:1fr}}
+
+.benefit-card{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--radius);padding:28px 24px;transition:all .2s}
+.benefit-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.04)}
+.benefit-card .icon{width:40px;height:40px;border-radius:10px;background:var(--yellow-light);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.benefit-card .icon svg{width:20px;height:20px;color:var(--gray-700)}
+.benefit-card h3{font-family:var(--font-display);font-size:17px;font-weight:700;margin-bottom:6px}
+.benefit-card p{font-size:14px;color:var(--gray-500);line-height:1.5}
+
+/* ══════════════════════════════════════
+   SECTION 5 — FAQ
+   ══════════════════════════════════════ */
+.section-faq{padding:48px 0 80px}
+.faq-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:48px;align-items:start}
+@media(max-width:768px){.faq-layout{grid-template-columns:1fr;gap:24px}}
+.faq-left h2{font-family:var(--font-display);font-size:28px;font-weight:800;margin-bottom:8px}
+.faq-left p{font-size:14px;color:var(--gray-500)}
+
+.faq-item{border-bottom:1px solid var(--gray-200);overflow:hidden}
+.faq-q{width:100%;text-align:left;padding:18px 0;background:none;border:none;font-size:15px;font-weight:600;color:var(--gray-900);display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer}
+.faq-q svg{flex-shrink:0;transition:transform .2s;color:var(--gray-400)}
+.faq-q.open svg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease;font-size:14px;color:var(--gray-500);line-height:1.6}
+.faq-a.open{max-height:300px;padding-bottom:18px}
+
+/* ══════════════════════════════════════
+   STICKY CTA
+   ══════════════════════════════════════ */
+.sticky-cta{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:50;background:var(--dark);color:#fff;border-radius:16px;padding:14px 20px 14px 28px;display:flex;align-items:center;gap:20px;box-shadow:0 8px 40px rgba(0,0,0,.25);max-width:480px;width:calc(100% - 32px)}
+.sticky-cta .info .label{font-size:12px;color:var(--gray-400)}
+.sticky-cta .info .chosen{font-size:15px;font-weight:700;color:var(--yellow)}
+.sticky-cta .cta-btn{margin-left:auto;background:var(--yellow);color:var(--gray-900);font-weight:700;font-size:14px;padding:12px 22px;border-radius:var(--radius-sm);border:none;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:all .2s}
+.sticky-cta .cta-btn:hover{background:var(--yellow-hover)}
+
+/* ── WHATSAPP FLOAT ── */
+.wpp-float{position:fixed;bottom:24px;right:24px;z-index:40;background:#25d366;color:#fff;width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);transition:transform .2s;text-decoration:none}
+.wpp-float:hover{transform:scale(1.08)}
+.wpp-float svg{width:28px;height:28px}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .6s ease forwards}
+.d1{animation-delay:.1s;opacity:0}
+.d2{animation-delay:.2s;opacity:0}
+.d3{animation-delay:.3s;opacity:0}
+</style>
+</head>
+<body>
+
+<!-- Hero BG -->
+<div class="hero-bg">
+  <img src="./yelly replit/Yelly Taxas_files/hero-mesh.png" alt="">
+  <div class="ov"></div>
+</div>
+
+<div class="container">
+
+<!-- ═══════════ HERO ═══════════ -->
+<section class="hero">
+  <div class="fade-up">
+    <div class="hero-badge">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Menores taxas do mercado
+    </div>
+  </div>
+  <h1 class="fade-up d1">Conheça os<br><em>Planos Yelly</em></h1>
+  <p class="fade-up d2">Escolha como quer receber suas vendas, compare as taxas e encontre a maquininha perfeita pro seu negócio.</p>
+</section>
+
+<!-- ═══════════ SECTION 1 — PLANOS ═══════════ -->
+<section class="section-plans">
+  <div class="step-header fade-up d3">
+    <div class="step-num">1</div>
+    <h2 class="step-title">Escolha seu plano</h2>
+  </div>
+
+  <!-- Recebimento toggle -->
+  <div class="recv-toggle">
+    <span class="recv-label">Recebimento das vendas:</span>
+    <button class="recv-btn active" onclick="setRecv(this,'hora')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Na hora
+    </button>
+    <button class="recv-btn" onclick="setRecv(this,'1dia')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+      1 dia útil
+    </button>
+    <button class="recv-btn" onclick="setRecv(this,'parcelas')">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3v4M8 3v4"/></svg>
+      Conforme parcelas
+    </button>
+  </div>
+
+  <!-- Plan cards -->
+  <div class="plans-row">
+    <!-- FLASH -->
+    <div class="plan-card selected" onclick="selectPlan(this,'flash')">
+      <div class="radio"></div>
+      <div class="plan-name">Flash</div>
+      <div class="plan-rates-row">
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">1,39<sub>%</sub></div>
+          <div class="plan-rate-lbl">Débito</div>
+        </div>
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">3,15<sub>%</sub></div>
+          <div class="plan-rate-lbl">Crédito</div>
+        </div>
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">12,61<sub>%</sub></div>
+          <div class="plan-rate-lbl">Crédito 12x</div>
+        </div>
+      </div>
+      <div class="plan-highlight">Receba na hora, ideal para quem está começando</div>
+      <div class="plan-note">Taxas para Mastercard e Visa</div>
+    </div>
+
+    <!-- MAX -->
+    <div class="plan-card" onclick="selectPlan(this,'max')">
+      <div class="radio"></div>
+      <div class="plan-name">Max</div>
+      <div class="plan-rates-row">
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">1,39<sub>%</sub></div>
+          <div class="plan-rate-lbl">Débito</div>
+        </div>
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">2,91<sub>%</sub></div>
+          <div class="plan-rate-lbl">Crédito</div>
+        </div>
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">12,01<sub>%</sub></div>
+          <div class="plan-rate-lbl">Crédito 12x</div>
+        </div>
+      </div>
+      <div class="plan-highlight">Venda mais com menores taxas a cada mês</div>
+      <div class="plan-note">Recebimento em 1 dia útil</div>
+    </div>
+
+    <!-- ECONOMIC -->
+    <div class="plan-card" onclick="selectPlan(this,'economic')">
+      <div class="radio"></div>
+      <div class="plan-name">Economic</div>
+      <div class="plan-rates-row">
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">1,09<sub>%</sub></div>
+          <div class="plan-rate-lbl">Débito</div>
+        </div>
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">2,20<sub>%</sub></div>
+          <div class="plan-rate-lbl">Crédito</div>
+        </div>
+        <div class="plan-rate-box">
+          <div class="plan-rate-val">2,78<sub>%</sub></div>
+          <div class="plan-rate-lbl">Crédito 12x</div>
+        </div>
+      </div>
+      <div class="plan-highlight">As menores taxas do mercado, sem surpresas</div>
+      <div class="plan-note">Recebimento conforme parcelas</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 2 — MAQUININHAS ═══════════ -->
+<section class="section-machines">
+  <div class="step-header">
+    <div class="step-num">2</div>
+    <h2 class="step-title">Escolha sua Maquininha</h2>
+  </div>
+
+  <div class="machines-grid">
+    <!-- YELLY MINI -->
+    <div class="m-card">
+      <div class="m-img">
+        <img src="./yelly replit/Yelly Taxas_files/machine-smart.png" alt="Yelly Mini">
+      </div>
+      <div class="m-name">Yelly <span>Mini</span></div>
+      <div class="m-desc">A maquininha compacta que conecta com o seu celular</div>
+      <div class="m-discount">25% OFF</div>
+      <div class="m-price-row">
+        <div class="m-price-old">R$ 399,00</div>
+        <div class="m-price-new">R$ 297,00 à vista ou</div>
+        <div class="m-price-new">12x R$ <strong>24,75</strong></div>
+      </div>
+      <div class="m-shipping">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Frete Grátis para todo Brasil
+      </div>
+      <button class="m-cta" onclick="pedirMaquina('mini')">Pedir Yelly Mini</button>
+      <ul class="m-features">
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg> Conexão via Bluetooth</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Comprovante por SMS</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6.7 6.7l10.6 10.6M6.7 17.3L17.3 6.7"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg> Bateria de longa duração</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Garantia vitalícia</li>
+      </ul>
+    </div>
+
+    <!-- YELLY PRO (destaque) -->
+    <div class="m-card" style="border-color:var(--yellow);box-shadow:0 0 0 1px var(--yellow),0 6px 28px rgba(255,214,0,.12)">
+      <div style="position:absolute;top:-12px;right:16px;background:var(--yellow);color:var(--gray-900);font-size:11px;font-weight:700;letter-spacing:.05em;padding:4px 14px;border-radius:8px;text-transform:uppercase">MAIS PEDIDA</div>
+      <div class="m-img">
+        <img src="./yelly replit/Yelly Taxas_files/machine-plus.png" alt="Yelly Pro">
+      </div>
+      <div class="m-name">Yelly <span>Pro</span></div>
+      <div class="m-desc">A maquininha completa com comprovante impresso</div>
+      <div class="m-discount">43% OFF</div>
+      <div class="m-price-row">
+        <div class="m-price-old">R$ 699,00</div>
+        <div class="m-price-new">R$ 397,00 à vista ou</div>
+        <div class="m-price-new">12x R$ <strong>33,08</strong></div>
+      </div>
+      <div class="m-shipping">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Frete Grátis para todo Brasil
+      </div>
+      <button class="m-cta" onclick="pedirMaquina('pro')">Pedir Yelly Pro</button>
+      <ul class="m-features">
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> Conexão Wi-Fi e 4G</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> Imprime comprovante</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> Visor touchscreen</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M16 8l-4 4-4-4"/></svg> Aceite Pix na Maquininha</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Garantia vitalícia</li>
+      </ul>
+    </div>
+
+    <!-- YELLY SMART -->
+    <div class="m-card">
+      <div class="m-img">
+        <img src="./yelly replit/Yelly Taxas_files/machine-pro.png" alt="Yelly Smart">
+      </div>
+      <div class="m-name">Yelly <span>Smart</span></div>
+      <div class="m-desc">A maquininha Android, mais rápida e moderna</div>
+      <div class="m-discount">37% OFF</div>
+      <div class="m-price-row">
+        <div class="m-price-old">R$ 799,00</div>
+        <div class="m-price-new">R$ 497,00 à vista ou</div>
+        <div class="m-price-new">12x R$ <strong>41,42</strong></div>
+      </div>
+      <div class="m-shipping">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Frete Grátis para todo Brasil
+      </div>
+      <button class="m-cta" onclick="pedirMaquina('smart')">Pedir Yelly Smart</button>
+      <ul class="m-features">
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> Wi-Fi e 4G integrados</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12" y2="18"/></svg> Sistema Android completo</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg> Impressora integrada</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M2 10h20"/></svg> Bateria ultra durável</li>
+        <li><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Garantia vitalícia</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 3 — SIMULADOR ═══════════ -->
+<section class="section-sim">
+  <div class="step-header">
+    <div class="step-num">3</div>
+    <h2 class="step-title">Simule as taxas das suas vendas</h2>
+  </div>
+
+  <div class="sim-wrap">
+    <div class="sim-left">
+      <label>Plano</label>
+      <select id="sim-plan" onchange="updateSim()">
+        <option value="flash">Flash — Receba na Hora</option>
+        <option value="max" selected>Max — Receba em 1 Dia</option>
+        <option value="economic">Economic — Conforme Parcelas</option>
+      </select>
+
+      <label>Bandeiras</label>
+      <select id="sim-flag" onchange="updateSim()">
+        <option value="mc">Mastercard e Visa</option>
+        <option value="elo">Elo e Hipercard</option>
+      </select>
+
+      <label>Valor da Venda</label>
+      <input type="text" id="sim-value" value="R$ 100,00" oninput="updateSim()">
+    </div>
+
+    <div class="sim-right">
+      <div class="sim-rates-grid">
+        <div class="sim-rate-card">
+          <div class="label">Pix</div>
+          <div class="val" id="sim-pix">0,75<sub>%</sub></div>
+          <div class="recv" id="sim-pix-recv">Você recebe: R$ 99,25</div>
+        </div>
+        <div class="sim-rate-card">
+          <div class="label">Débito</div>
+          <div class="val" id="sim-deb">1,39<sub>%</sub></div>
+          <div class="recv" id="sim-deb-recv">Você recebe: R$ 98,61</div>
+        </div>
+        <div class="sim-rate-card">
+          <div class="label">Crédito</div>
+          <div class="val" id="sim-cred">2,91<sub>%</sub></div>
+          <div class="recv" id="sim-cred-recv">Você recebe: R$ 97,09</div>
+        </div>
+        <div class="sim-rate-card">
+          <div class="label">Crédito 12x</div>
+          <div class="val" id="sim-cred12">12,01<sub>%</sub></div>
+          <div class="recv" id="sim-cred12-recv">Você recebe: R$ 87,99</div>
+        </div>
+      </div>
+      <div class="sim-note">Taxas podem variar conforme bandeira e modalidade. <a href="#" class="plan-link">Confira todas as condições do plano</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 4 — BENEFÍCIOS ═══════════ -->
+<section class="section-benefits">
+  <div class="container">
+    <h2 class="heading">Pra você <em>nunca mais</em> perder uma venda</h2>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Sem mensalidade</h3>
+        <p>Você só paga quando vender. Sem custo mensal ou taxa de adesão.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></div>
+        <h3>Aprovação em minutos</h3>
+        <p>Cadastro rápido e sem burocracia. Comece a vender hoje mesmo.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <h3>Garantia vitalícia</h3>
+        <p>Trocas e manutenção grátis. Se preocupe só em vender.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Suporte 7 dias</h3>
+        <p>Atendimento humanizado via WhatsApp, sem robôs.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg></div>
+        <h3>Chip com internet grátis</h3>
+        <p>Sem nenhum custo mensal adicional no seu bolso.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg></div>
+        <h3>+50 bandeiras aceitas</h3>
+        <p>Débito, crédito e vouchers. Mastercard, Visa, Elo, Hipercard e mais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SECTION 5 — FAQ ═══════════ -->
+<section class="section-faq">
+  <div class="container">
+    <div class="faq-layout">
+      <div class="faq-left">
+        <h2>Ficou alguma dúvida?</h2>
+        <p>Ficou com alguma dúvida sobre os nossos produtos?</p>
+      </div>
+      <div class="faq-right">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Preciso ter CNPJ para usar a Yelly?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Não! A Yelly é para todos: CPF, MEI, PJ. Basta fazer o cadastro e começar a vender.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Como recebo o valor das minhas vendas?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Depende do plano escolhido: no Flash você recebe na hora, no Max em 1 dia útil, e no Economic conforme as parcelas do cliente.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Existe alguma mensalidade ou taxa de adesão?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Não. Você só paga a taxa sobre cada venda realizada. Sem mensalidade, sem surpresas.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            A maquininha aceita Pix?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Sim! Todas as maquininhas Yelly aceitam Pix QR Code e Pix por aproximação, com taxa a partir de 0,75%.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            E se minha maquininha der problema?
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          </button>
+          <div class="faq-a">Todas as maquininhas têm garantia vitalícia. Trocamos sem custo e sem burocracia.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- STICKY CTA -->
+<div class="sticky-cta" id="sticky-cta">
+  <div class="info">
+    <div class="label">Você escolheu:</div>
+    <div class="chosen" id="cta-label">Flash</div>
+  </div>
+  <button class="cta-btn" onclick="window.location.href='#'">
+    Pedir minha maquininha
+    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  </button>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/55XXXXXXXXXXX" class="wpp-float" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+// ── State ──
+let curPlan = 'flash';
+
+// ── Rates data ──
+const ratesDB = {
+  flash: { mc: { pix:.75, deb:1.39, cred:3.15, cred12:12.61 }, elo: { pix:.75, deb:1.69, cred:3.45, cred12:12.91 } },
+  max:   { mc: { pix:.75, deb:1.39, cred:2.91, cred12:12.01 }, elo: { pix:.75, deb:1.69, cred:3.21, cred12:12.31 } },
+  economic:{ mc:{ pix:.75, deb:1.09, cred:2.20, cred12:2.78 }, elo:{ pix:.75, deb:1.39, cred:2.50, cred12:3.08 } }
+};
+
+function setRecv(btn, type) {
+  document.querySelectorAll('.recv-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function selectPlan(el, plan) {
+  curPlan = plan;
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('cta-label').textContent = {flash:'Flash',max:'Max',economic:'Economic'}[plan];
+  document.getElementById('sim-plan').value = plan;
+  updateSim();
+}
+
+function parseVal(str) {
+  const n = str.replace(/[^\d,]/g,'').replace(',','.');
+  return parseFloat(n) || 100;
+}
+
+function fmt(n) { return n.toFixed(2).replace('.',','); }
+
+function updateSim() {
+  const plan = document.getElementById('sim-plan').value;
+  const flag = document.getElementById('sim-flag').value;
+  const val = parseVal(document.getElementById('sim-value').value);
+  const r = ratesDB[plan][flag];
+
+  const ids = [
+    ['sim-pix', 'sim-pix-recv', r.pix],
+    ['sim-deb', 'sim-deb-recv', r.deb],
+    ['sim-cred', 'sim-cred-recv', r.cred],
+    ['sim-cred12', 'sim-cred12-recv', r.cred12]
+  ];
+  ids.forEach(([id, recvId, rate]) => {
+    document.getElementById(id).innerHTML = fmt(rate) + '<sub>%</sub>';
+    const recv = val * (1 - rate/100);
+    document.getElementById(recvId).textContent = 'Você recebe: R$ ' + fmt(recv);
+  });
+}
+
+function pedirMaquina(m) {
+  // placeholder — link to WhatsApp or checkout
+  alert('Redirecionando para pedido: Yelly ' + m.charAt(0).toUpperCase() + m.slice(1));
+}
+
+function toggleFaq(btn) {
+  const a = btn.nextElementSibling;
+  const isOpen = a.classList.contains('open');
+  // close all
+  document.querySelectorAll('.faq-a').forEach(el => el.classList.remove('open'));
+  document.querySelectorAll('.faq-q').forEach(el => el.classList.remove('open'));
+  if (!isOpen) {
+    a.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+// Init
+updateSim();
+</script>
+</body>
+</html>

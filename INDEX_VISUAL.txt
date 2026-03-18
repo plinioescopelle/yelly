@@ -1,0 +1,352 @@
+╔═══════════════════════════════════════════════════════════════════════════════╗
+║                   📚 ÍNDICE VISUAL - DOCUMENTOS YELLY                         ║
+║                                                                               ║
+║                    Projeto: Nova Homepage + Arquitetura                       ║
+║                           Status: ✅ PRONTO PARA GERAR                        ║
+╚═══════════════════════════════════════════════════════════════════════════════╝
+
+┌───────────────────────────────────────────────────────────────────────────────┐
+│ 📂 PASTA: /sessions/adoring-trusting-johnson/mnt/Yelly/                       │
+├───────────────────────────────────────────────────────────────────────────────┤
+│                                                                               │
+│  8 DOCUMENTOS GERADOS + 1 REFERÊNCIA                                          │
+│                                                                               │
+└───────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════════
+                            🗂️ MAPA DE DOCUMENTOS
+═══════════════════════════════════════════════════════════════════════════════════
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 📋 NÍVEL 1: DOCUMENTOS ESTRATÉGICOS (Entender "POR QUE")                    ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ 1️⃣ ANALISE_BENCHMARKS_E_PROMPT.md
+   ├─ O QUE É: Análise comparativa dos 3 concorrentes
+   ├─ TAMANHO: ~1200 linhas
+   ├─ LEIA QUANDO: Quer entender por quê dessa forma
+   ├─ CONTAINS:
+   │  ├─ Análise Yelly (pontos fortes/fracos)
+   │  ├─ Análise SumUp (padrão high-conversion)
+   │  ├─ Análise InfinitePay (foco conversão)
+   │  ├─ Padrões que convertem
+   │  ├─ Diferenciais competitivos
+   │  └─ Métricas esperadas
+   ├─ PARA QUEM: Stakeholders, Marketing, Produto
+   └─ TIMING: Leia PRIMEIRO para aprovação
+
+───────────────────────────────────────────────────────────────────────────────
+
+ 2️⃣ ARQUITETURA_COMPLETA_SITE_YELLY.md
+   ├─ O QUE É: Arquitetura macro do site inteiro
+   ├─ TAMANHO: ~2000 linhas
+   ├─ LEIA QUANDO: Quer visão geral de tudo
+   ├─ CONTAINS:
+   │  ├─ Sitemap completo (menu + 7 páginas)
+   │  ├─ Estrutura de navegação
+   │  ├─ Homepage em 11 seções
+   │  ├─ 5 Páginas complementares
+   │  ├─ Fluxo de conversão (3 personas)
+   │  ├─ Elementos transversais (sticky CTA, chat, etc)
+   │  ├─ 4 Phases de implementação
+   │  ├─ Métricas de sucesso
+   │  └─ Diferenças: site novo vs atual
+   ├─ PARA QUEM: PM, Dev Lead, Stakeholders
+   └─ TIMING: Leia SEGUNDO para roadmap
+
+═════════════════════════════════════════════════════════════════════════════════
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 📐 NÍVEL 2: DOCUMENTOS DE EXECUÇÃO (COMO FAZER)                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ 3️⃣ PROMPT_EXECUCAO_HOMEPAGE.md
+   ├─ O QUE É: Briefing executivo com conteúdo detalhado
+   ├─ TAMANHO: ~1500 linhas
+   ├─ LEIA QUANDO: Vou implementar a homepage
+   ├─ CONTAINS:
+   │  ├─ Briefing objetivo/tagline/diferencial
+   │  ├─ 11 Seções homepage (conteúdo exato)
+   │  ├─ Design system (colors, fonts, spacing)
+   │  ├─ Componentes (calculadora, accordion, CTA)
+   │  ├─ 3 Phases de implementação
+   │  ├─ Checklist de qualidade
+   │  ├─ Métricas para monitorar
+   │  └─ Próximos passos
+   ├─ PARA QUEM: Dev, Designer, QA
+   └─ TIMING: Use DURANTE implementação
+
+───────────────────────────────────────────────────────────────────────────────
+
+ 4️⃣ BRIEF_CLAUDE_CODE.md
+   ├─ O QUE É: Briefing estruturado para Claude Code gerar
+   ├─ TAMANHO: ~900 linhas
+   ├─ LEIA QUANDO: Vou enviar para Claude Code gerar
+   ├─ CONTAINS:
+   │  ├─ Instruções 3 opções (Web/CLI/Manual)
+   │  ├─ Escopo Phase 1 MVP
+   │  ├─ Estrutura homepage (ordem exata)
+   │  ├─ Design system (reutilizar de taxas.html)
+   │  ├─ Conteúdo exato (copy/paste direto)
+   │  ├─ Requisitos técnicos
+   │  ├─ Componentes interativos spec
+   │  └─ Checklist pós-geração
+   ├─ PARA QUEM: Qualquer um enviando para Claude Code
+   └─ TIMING: Use quando gerando
+
+═════════════════════════════════════════════════════════════════════════════════
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🚀 NÍVEL 3: GUIAS PRÁTICOS (PASSO A PASSO)                                ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ 5️⃣ COMO_ENVIAR_AO_CLAUDE_CODE.txt
+   ├─ O QUE É: Quick start - 3 opções de envio
+   ├─ TAMANHO: ~400 linhas
+   ├─ LEIA QUANDO: "Como faço na prática?"
+   ├─ CONTAINS:
+   │  ├─ Opção 1: Interface Web (+ fácil)
+   │  ├─ Opção 2: CLI (+ rápido)
+   │  ├─ Opção 3: Manual (+ controle)
+   │  ├─ Prompt exato para copiar/colar
+   │  ├─ Checklist final
+   │  ├─ Dúvidas comuns
+   │  └─ Próximos passos
+   ├─ PARA QUEM: Qualquer um gerando agora
+   └─ TIMING: Use AGORA para gerar
+
+───────────────────────────────────────────────────────────────────────────────
+
+ 6️⃣ README_ARQUIVOS.md
+   ├─ O QUE É: Meta-documento explicando todos os outros
+   ├─ TAMANHO: ~600 linhas
+   ├─ LEIA QUANDO: Não sabe por onde começar
+   ├─ CONTAINS:
+   │  ├─ Explicação 7 arquivos
+   │  ├─ Como usar cada um
+   │  ├─ 4 Cenários de uso
+   │  ├─ Mapa mental dos docs
+   │  ├─ Fluxo de trabalho recomendado
+   │  ├─ Checklist: você tem tudo?
+   │  └─ Próximo passo
+   ├─ PARA QUEM: Gerenciador do projeto
+   └─ TIMING: Leia no início
+
+═════════════════════════════════════════════════════════════════════════════════
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🎨 NÍVEL 4: REFERÊNCIAS VISUAIS (VER)                                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ 7️⃣ ESTRUTURA_VISUAL_HOMEPAGE.txt
+   ├─ O QUE É: Wireframe em ASCII art
+   ├─ TAMANHO: ~300 linhas
+   ├─ LEIA QUANDO: Quer ver layout antes de gerar código
+   ├─ CONTAINS:
+   │  ├─ Wireframe desktop completo
+   │  ├─ Wireframe mobile responsivo
+   │  ├─ Proportions e spacing visuais
+   │  ├─ Placement de elementos
+   │  └─ Observações de implementação
+   ├─ PARA QUEM: Designer, QA, Stakeholders
+   └─ TIMING: Valide com stakeholders
+
+═════════════════════════════════════════════════════════════════════════════════
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 🔧 NÍVEL 5: ARQUIVOS DE CÓDIGO (TEMPLATE)                                 ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ 8️⃣ yelly-taxas-v4.html
+   ├─ O QUE É: Página de taxas (referência visual/CSS)
+   ├─ TAMANHO: ~730 linhas (código real)
+   ├─ COPIE DAQUI:
+   │  ├─ CSS completo (colors, fonts, components)
+   │  ├─ Componentes (.hero, .container, .sticky-cta)
+   │  ├─ JavaScript patterns
+   │  └─ HTML estrutura (grid, flex, responsive)
+   ├─ NÃO COPIE:
+   │  ├─ Conteúdo específico de taxas
+   │  ├─ Dados appData
+   │  └─ Funções de taxa
+   ├─ PARA QUEM: Dev implementando
+   └─ TIMING: Use como TEMPLATE visual
+
+═════════════════════════════════════════════════════════════════════════════════
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ 📝 META-ARQUIVO (Este que você está lendo)                                 ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+ 9️⃣ INDEX_VISUAL.txt (Este arquivo)
+   ├─ O QUE É: Mapa visual de todos os documentos
+   ├─ TAMANHO: Esta arquivo
+   ├─ LEIA QUANDO: Quer saber como os docs se conectam
+   ├─ CONTAINS:
+   │  ├─ Índice visual de 9 documentos
+   │  ├─ 4 Fluxos de trabalho
+   │  ├─ Matriz de "qual ler primeiro"
+   │  ├─ Resumo executivo
+   │  └─ Comandos prontos
+   ├─ PARA QUEM: Gerente/coordenador
+   └─ TIMING: Leia AGORA
+
+═════════════════════════════════════════════════════════════════════════════════
+
+🎯 MATRIZ: QUAL DOCUMENTO LER PRIMEIRO?
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ EU SOU...                 │ LEIA NESTA ORDEM                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ CEO/Stakeholder           │ 1. ANALISE_BENCHMARKS                             │
+│                           │ 2. ARQUITETURA_COMPLETA                          │
+│                           │ 3. ESTRUTURA_VISUAL                              │
+│                           │ → Aprova ou pede ajustes                         │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ PM/Gerente do Projeto     │ 1. README_ARQUIVOS                               │
+│                           │ 2. ARQUITETURA_COMPLETA                          │
+│                           │ 3. PROMPT_EXECUCAO_HOMEPAGE                      │
+│                           │ → Entende fluxo geral                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Dev/Engenheiro            │ 1. BRIEF_CLAUDE_CODE                             │
+│                           │ 2. PROMPT_EXECUCAO_HOMEPAGE                      │
+│                           │ 3. yelly-taxas-v4.html                           │
+│                           │ → Implementa agora                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Designer                  │ 1. ESTRUTURA_VISUAL                              │
+│                           │ 2. PROMPT_EXECUCAO_HOMEPAGE (seção design)       │
+│                           │ 3. yelly-taxas-v4.html (CSS reference)           │
+│                           │ → Faz mockup em Figma                            │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ QA/Tester                 │ 1. PROMPT_EXECUCAO_HOMEPAGE (checklist)          │
+│                           │ 2. BRIEF_CLAUDE_CODE (requisitos)                │
+│                           │ 3. ESTRUTURA_VISUAL (layout)                     │
+│                           │ → Valida implementação                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Eu não sei por onde começa│ → Leia README_ARQUIVOS AGORA                     │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═════════════════════════════════════════════════════════════════════════════════
+
+🚀 4 FLUXOS DE TRABALHO
+
+FLUXO 1: GERAR AGORA (Mais rápido)
+┌─ Você: Quer homepage pronta ASAP
+└─ Faça:
+   1. Leia: COMO_ENVIAR_AO_CLAUDE_CODE.txt
+   2. Execute: Opção 1 (Interface Web)
+   3. Use: BRIEF_CLAUDE_CODE.md (conteúdo)
+   4. Teste: yelly-homepage.html (resultado)
+   ⏱️  Tempo: 2-3 horas
+
+FLUXO 2: ENTENDER ANTES (Mais seguro)
+┌─ Você: Quer aprovação antes de gerar
+└─ Faça:
+   1. Leia: ANALISE_BENCHMARKS
+   2. Leia: ARQUITETURA_COMPLETA
+   3. Mostre: ESTRUTURA_VISUAL para stakeholders
+   4. Aprove: Go/No-go
+   5. Se sim: Execute FLUXO 1
+   ⏱️  Tempo: 1 dia
+
+FLUXO 3: CUSTOMIZAR (Mais controle)
+┌─ Você: Quer adaptar ao seu brand/copy
+└─ Faça:
+   1. Estude: PROMPT_EXECUCAO_HOMEPAGE.md
+   2. Copie: CSS de yelly-taxas-v4.html
+   3. Customize: Copy/conteúdo conforme marca
+   4. Implemente: Seguindo estrutura
+   5. Teste: Valide com BRIEF_CLAUDE_CODE (checklist)
+   ⏱️  Tempo: 2-3 dias
+
+FLUXO 4: DELEGAR (Mais fácil)
+┌─ Você: Quer que outro faça
+└─ Faça:
+   1. Compartilhe: README_ARQUIVOS.md
+   2. Aponte: "Leia nesta ordem conforme seu rol"
+   3. Envie: BRIEF_CLAUDE_CODE.md + PROMPT_EXECUCAO
+   4. Monitore: Via checklist em BRIEF_CLAUDE_CODE
+   5. Aprove: Resultado final
+   ⏱️  Tempo: 1-2 semanas (depende de outros)
+
+═════════════════════════════════════════════════════════════════════════════════
+
+📊 RESUMO EXECUTIVO (60 segundos)
+
+QUE FOI GERADO:
+✅ Análise comparativa (3 concorrentes)
+✅ Arquitetura de site (11 seções + 5 páginas)
+✅ Briefing para homepage (conteúdo + estrutura)
+✅ Guia passo-a-passo (3 opções de implementação)
+✅ Wireframe visual (desktop + mobile)
+✅ Template CSS (reutilizar de página de taxas)
+
+PRÓXIMO PASSO:
+→ Enviar para Claude Code gerar yelly-homepage.html
+
+QUANDO SAIR:
+→ 2-3 horas (geração)
+→ 1 dia (testes + ajustes)
+
+MÉTRICA ESPERADA:
+→ Bounce rate: 55% → 35% (-36%)
+→ CTR CTA: 2% → 8% (+400%)
+→ Conversão: 0.5% → 2% (+400%)
+
+STATUS: ✅ PRONTO PARA GERAR
+
+═════════════════════════════════════════════════════════════════════════════════
+
+🎯 COMANDOS PRONTOS
+
+Se usar CLI:
+┌─ curl https://claude.com/api/generate \
+│    --context BRIEF_CLAUDE_CODE.md \
+│    --context PROMPT_EXECUCAO_HOMEPAGE.md \
+│    --output yelly-homepage.html
+└─ (ou use Claude Code app direto)
+
+Se usar Web:
+┌─ 1. Abra https://claude.com/claude-code
+│  2. Copie conteúdo de COMO_ENVIAR_AO_CLAUDE_CODE.txt
+│  3. Execute
+└─ (Mais fácil)
+
+═════════════════════════════════════════════════════════════════════════════════
+
+📞 SUPORTE RÁPIDO
+
+"Não entendi o projeto"
+→ Leia: README_ARQUIVOS.md
+
+"Não entendo por que essa forma"
+→ Leia: ANALISE_BENCHMARKS_E_PROMPT.md
+
+"Qual é o roadmap?"
+→ Leia: ARQUITETURA_COMPLETA_SITE_YELLY.md
+
+"Como implemento?"
+→ Leia: BRIEF_CLAUDE_CODE.md
+
+"Qual é o conteúdo exato?"
+→ Leia: PROMPT_EXECUCAO_HOMEPAGE.md
+
+"Como envio para Claude Code?"
+→ Leia: COMO_ENVIAR_AO_CLAUDE_CODE.txt
+
+"Como fica visualmente?"
+→ Veja: ESTRUTURA_VISUAL_HOMEPAGE.txt
+
+═════════════════════════════════════════════════════════════════════════════════
+
+✅ PRONTO PARA GERAR A HOMEPAGE
+
+Data: 2026-03-16
+Status: ✅ COMPLETO
+Próximo: Enviar para Claude Code
+
+Você tem TUDO que precisa. Não falta nada.
+
+Começar agora? Leia: COMO_ENVIAR_AO_CLAUDE_CODE.txt
+
+═════════════════════════════════════════════════════════════════════════════════

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yelly - Taxas e Maquininhas</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #0a0a0a;
+    color: #fff;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    text-align: center;
+    padding: 60px 20px 40px;
+    background: linear-gradient(180deg, #1a1a00 0%, #0a0a0a 100%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: #FFD60022;
+    color: #FFD600;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 44px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    line-height: 1.15;
+  }
+  .hero h1 span { color: #FFD600; }
+  .hero p {
+    color: #999;
+    font-size: 17px;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── SECTION CONTAINER ── */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .section-title {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #FFD600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-heading {
+    text-align: center;
+    font-size: clamp(22px, 3.5vw, 32px);
+    font-weight: 700;
+    margin-bottom: 40px;
+  }
+
+  /* ── STEP 1: PLANO ── */
+  .step-plans { padding: 50px 0; }
+
+  .plans-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+    .plans-grid { grid-template-columns: 1fr; max-width: 400px; }
+  }
+
+  .plan-card {
+    background: #141414;
+    border: 2px solid #222;
+    border-radius: 16px;
+    padding: 28px 24px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    position: relative;
+  }
+  .plan-card:hover { border-color: #444; transform: translateY(-2px); }
+  .plan-card.selected {
+    border-color: #FFD600;
+    background: #1a1a0a;
+    box-shadow: 0 0 30px #FFD60015;
+  }
+  .plan-card.recommended::before {
+    content: 'RECOMENDADO';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFD600;
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 14px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .plan-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    margin-bottom: 14px;
+  }
+  .plan-flash .plan-icon { background: #2a1a00; }
+  .plan-max .plan-icon { background: #1a2a00; }
+  .plan-economic .plan-icon { background: #001a2a; }
+
+  .plan-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .plan-desc {
+    font-size: 14px;
+    color: #888;
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+  .plan-rates {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .plan-rate {
+    flex: 1;
+    min-width: 80px;
+  }
+  .plan-rate-label {
+    font-size: 11px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .plan-rate-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #FFD600;
+  }
+  .plan-rate-value small {
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .plan-timing {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid #222;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #aaa;
+  }
+  .plan-timing svg { flex-shrink: 0; }
+
+  /* ── STEP 2: TAXAS COMPLETAS ── */
+  .step-rates { padding: 50px 0; }
+
+  .rates-toggle-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  .rates-toggle-btn {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    color: #999;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .rates-toggle-btn:hover { color: #fff; border-color: #555; }
+  .rates-toggle-btn.active {
+    background: #FFD600;
+    color: #000;
+    border-color: #FFD600;
+  }
+
+  .rates-table-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+    background: #141414;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #222;
+  }
+  .rates-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .rates-table th {
+    text-align: left;
+    padding: 14px 20px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #222;
+    background: #111;
+  }
+  .rates-table th:last-child { text-align: right; }
+  .rates-table td {
+    padding: 12px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .rates-table td:last-child {
+    text-align: right;
+    font-weight: 700;
+    color: #FFD600;
+  }
+  .rates-table tr:last-child td { border-bottom: none; }
+  .rates-table tr:hover { background: #1a1a1a; }
+
+  .rates-table .highlight-row td {
+    background: #1a1a0a;
+  }
+
+  /* ── STEP 3: MAQUINAS ── */
+  .step-machines { padding: 50px 0 80px; }
+
+  .machines-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  @media (max-width: 768px) {
+    .machines-grid { grid-template-columns: 1fr; max-width: 360px; }
+  }
+
+  .machine-card {
+    background: #141414;
+    border: 2px solid #222;
+    border-radius: 20px;
+    padding: 30px 24px;
+    text-align: center;
+    transition: all 0.25s ease;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .machine-card:hover { border-color: #444; transform: translateY(-3px); }
+  .machine-card.featured {
+    border-color: #FFD600;
+    background: #1a1a0a;
+  }
+  .machine-card.featured::before {
+    content: 'MAIS VENDIDA';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #FFD600;
+    color: #000;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 14px;
+    border-radius: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .machine-img-wrap {
+    width: 160px;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    position: relative;
+  }
+  .machine-placeholder {
+    width: 100px;
+    height: 160px;
+    background: #222;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 36px;
+  }
+
+  .machine-discount {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #e53e3e;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 8px;
+  }
+
+  .machine-tag {
+    font-size: 11px;
+    font-weight: 600;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .machine-name {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+
+  .machine-price-old {
+    font-size: 14px;
+    color: #666;
+    text-decoration: line-through;
+    margin-bottom: 4px;
+  }
+  .machine-price {
+    font-size: 32px;
+    font-weight: 800;
+    color: #FFD600;
+    line-height: 1.1;
+  }
+  .machine-price small {
+    font-size: 14px;
+    font-weight: 500;
+    color: #aaa;
+    display: block;
+    margin-top: 4px;
+  }
+
+  .machine-features {
+    list-style: none;
+    margin: 18px 0;
+    width: 100%;
+    text-align: left;
+  }
+  .machine-features li {
+    font-size: 13px;
+    color: #bbb;
+    padding: 6px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .machine-features li svg { color: #FFD600; flex-shrink: 0; }
+
+  .btn-primary {
+    display: inline-block;
+    width: 100%;
+    padding: 14px 24px;
+    background: #FFD600;
+    color: #000;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    margin-top: auto;
+  }
+  .btn-primary:hover { background: #ffe333; transform: translateY(-1px); }
+
+  .btn-secondary {
+    display: inline-block;
+    width: 100%;
+    padding: 14px 24px;
+    background: transparent;
+    color: #FFD600;
+    font-size: 15px;
+    font-weight: 700;
+    border: 2px solid #FFD600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    text-align: center;
+    margin-top: auto;
+  }
+  .btn-secondary:hover { background: #FFD60015; }
+
+  /* ── FLOW STEPS ── */
+  .flow-steps {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 50px;
+    flex-wrap: wrap;
+  }
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #555;
+    font-weight: 500;
+  }
+  .flow-step.active { color: #FFD600; }
+  .flow-step-num {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    background: #1a1a1a;
+    border: 2px solid #333;
+  }
+  .flow-step.active .flow-step-num {
+    background: #FFD600;
+    color: #000;
+    border-color: #FFD600;
+  }
+  .flow-step.done .flow-step-num {
+    background: #2a6b2a;
+    border-color: #2a6b2a;
+    color: #fff;
+  }
+  .flow-step.done { color: #888; }
+
+  /* ── COMPARISON HINT ── */
+  .comparison-hint {
+    text-align: center;
+    padding: 16px;
+    margin-bottom: 30px;
+  }
+  .comparison-hint a {
+    color: #FFD600;
+    text-decoration: underline;
+    font-size: 14px;
+    cursor: pointer;
+  }
+
+  /* ── FOOTER CTA ── */
+  .footer-cta {
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a1a00 100%);
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .footer-cta h2 {
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 800;
+    margin-bottom: 12px;
+  }
+  .footer-cta p {
+    color: #888;
+    font-size: 16px;
+    margin-bottom: 24px;
+  }
+  .footer-cta .btn-primary {
+    width: auto;
+    padding: 16px 40px;
+    font-size: 16px;
+  }
+
+  /* ── TRUST BAR ── */
+  .trust-bar {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    padding: 30px 20px;
+    flex-wrap: wrap;
+  }
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #666;
+  }
+  .trust-item svg { color: #FFD600; }
+
+  /* ── ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeIn 0.5s ease forwards;
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── HIDDEN ── */
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">DÉBITO A PARTIR DE 1,09%</div>
+  <h1>Escolha o plano ideal<br><span>para o seu negócio</span></h1>
+  <p>Taxas transparentes, sem surpresas. Escolha como quer receber e comece a vender hoje.</p>
+
+  <div class="trust-bar">
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Pagamento seguro
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Sem mensalidade
+    </div>
+    <div class="trust-item">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      Entrega rápida
+    </div>
+  </div>
+</section>
+
+<!-- PASSO 1: ESCOLHA SEU PLANO -->
+<section class="step-plans section" id="planos">
+  <p class="section-title">Passo 1</p>
+  <h2 class="section-heading">Como você quer receber suas vendas?</h2>
+
+  <div class="plans-grid">
+    <!-- FLASH -->
+    <div class="plan-card plan-flash selected" onclick="selectPlan('flash')">
+      <div class="plan-icon">⚡</div>
+      <div class="plan-name">Flash</div>
+      <div class="plan-desc">Receba na hora, direto na sua conta.</div>
+      <div class="plan-rates">
+        <div class="plan-rate">
+          <div class="plan-rate-label">Débito</div>
+          <div class="plan-rate-value">1,39<small>%</small></div>
+        </div>
+        <div class="plan-rate">
+          <div class="plan-rate-label">Crédito 1x</div>
+          <div class="plan-rate-value">3,15<small>%</small></div>
+        </div>
+      </div>
+      <div class="plan-timing">
+        <svg width="14" height="14" fill="none" stroke="#FFD600" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Recebimento instantâneo
+      </div>
+    </div>
+
+    <!-- MAX -->
+    <div class="plan-card plan-max recommended" onclick="selectPlan('max')">
+      <div class="plan-icon">🚀</div>
+      <div class="plan-name">Max</div>
+      <div class="plan-desc">Menores taxas com recebimento em 1 dia.</div>
+      <div class="plan-rates">
+        <div class="plan-rate">
+          <div class="plan-rate-label">Débito</div>
+          <div class="plan-rate-value">1,39<small>%</small></div>
+        </div>
+        <div class="plan-rate">
+          <div class="plan-rate-label">Crédito 1x</div>
+          <div class="plan-rate-value">2,91<small>%</small></div>
+        </div>
+      </div>
+      <div class="plan-timing">
+        <svg width="14" height="14" fill="none" stroke="#FFD600" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Recebimento em 1 dia útil
+      </div>
+    </div>
+
+    <!-- ECONOMIC -->
+    <div class="plan-card plan-economic" onclick="selectPlan('economic')">
+      <div class="plan-icon">💰</div>
+      <div class="plan-name">Economic</div>
+      <div class="plan-desc">As menores taxas do mercado.</div>
+      <div class="plan-rates">
+        <div class="plan-rate">
+          <div class="plan-rate-label">Débito</div>
+          <div class="plan-rate-value">1,09<small>%</small></div>
+        </div>
+        <div class="plan-rate">
+          <div class="plan-rate-label">Crédito 1x</div>
+          <div class="plan-rate-value">2,20<small>%</small></div>
+        </div>
+      </div>
+      <div class="plan-timing">
+        <svg width="14" height="14" fill="none" stroke="#FFD600" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Recebimento conforme parcelas
+      </div>
+    </div>
+  </div>
+
+  <!-- Link para ver todas as taxas -->
+  <div class="comparison-hint">
+    <a onclick="toggleRates()">Ver todas as taxas detalhadas ↓</a>
+  </div>
+</section>
+
+<!-- TAXAS COMPLETAS (colapsável) -->
+<section class="step-rates section hidden" id="taxas-detalhe">
+  <h2 class="section-heading" style="font-size:22px;">Taxas do plano <span id="plan-label-rates" style="color:#FFD600">Flash</span></h2>
+
+  <div class="rates-toggle-row">
+    <button class="rates-toggle-btn active" onclick="switchFlag(this,'mc')">Mastercard / Visa</button>
+    <button class="rates-toggle-btn" onclick="switchFlag(this,'elo')">Elo / Hipercard</button>
+  </div>
+
+  <div class="rates-table-wrap">
+    <table class="rates-table" id="rates-table-body">
+      <thead>
+        <tr><th>Modalidade</th><th>Taxa</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="comparison-hint" style="margin-top:20px;">
+    <a onclick="toggleRates()">Fechar tabela de taxas ↑</a>
+  </div>
+</section>
+
+<!-- PASSO 2: ESCOLHA SUA MAQUININHA -->
+<section class="step-machines section" id="maquininhas">
+  <p class="section-title">Passo 2</p>
+  <h2 class="section-heading">Escolha sua maquininha</h2>
+
+  <div class="machines-grid">
+    <!-- Mini -->
+    <div class="machine-card">
+      <div class="machine-img-wrap">
+        <div class="machine-placeholder">📱</div>
+        <span class="machine-discount">25% OFF</span>
+      </div>
+      <div class="machine-tag">A mais portátil</div>
+      <div class="machine-name">Yelly Mini</div>
+      <div class="machine-price-old">de R$ 399,00</div>
+      <div class="machine-price">
+        R$ 297<small>ou 12x de R$ 24,75 sem juros</small>
+      </div>
+      <ul class="machine-features">
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Conexão via Bluetooth</li>
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Compacta e leve</li>
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Ideal para delivery</li>
+      </ul>
+      <a href="#" class="btn-secondary">Pedir agora</a>
+    </div>
+
+    <!-- Pro -->
+    <div class="machine-card featured">
+      <div class="machine-img-wrap">
+        <div class="machine-placeholder">🖥️</div>
+        <span class="machine-discount">43% OFF</span>
+      </div>
+      <div class="machine-tag">A mais completa</div>
+      <div class="machine-name">Yelly Pro</div>
+      <div class="machine-price-old">de R$ 699,00</div>
+      <div class="machine-price">
+        R$ 397<small>ou 12x de R$ 33,08 sem juros</small>
+      </div>
+      <ul class="machine-features">
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Wi-Fi + Chip 4G</li>
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Tela touch colorida</li>
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Impressora integrada</li>
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Preferida dos clientes</li>
+      </ul>
+      <a href="#" class="btn-primary">Pedir agora</a>
+    </div>
+
+    <!-- Smart -->
+    <div class="machine-card">
+      <div class="machine-img-wrap">
+        <div class="machine-placeholder">📲</div>
+        <span class="machine-discount">37% OFF</span>
+      </div>
+      <div class="machine-tag">A mais moderna</div>
+      <div class="machine-name">Yelly Smart</div>
+      <div class="machine-price-old">de R$ 799,00</div>
+      <div class="machine-price">
+        R$ 497<small>ou 12x de R$ 41,42 sem juros</small>
+      </div>
+      <ul class="machine-features">
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Android integrado</li>
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Tela grande touch</li>
+        <li><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Impressora integrada</li>
+      </ul>
+      <a href="#" class="btn-secondary">Pedir agora</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <h2>Pronto para vender mais?</h2>
+  <p>Comece agora e receba sua maquininha em poucos dias.</p>
+  <a href="#" class="btn-primary">Falar com um consultor</a>
+</section>
+
+<script>
+// ── DATA ──
+const ratesData = {
+  flash: {
+    mc: [
+      ['Débito','1,39%'],['Crédito à vista','3,15%'],
+      ['2x','5,16%'],['3x','5,87%'],['4x','6,59%'],['5x','7,29%'],
+      ['6x','8,00%'],['7x','9,24%'],['8x','9,93%'],['9x','10,61%'],
+      ['10x','11,27%'],['11x','11,94%'],['12x','12,61%']
+    ],
+    elo: [
+      ['Débito','1,69%'],['Crédito à vista','3,45%'],
+      ['2x','5,46%'],['3x','6,17%'],['4x','6,89%'],['5x','7,59%'],
+      ['6x','8,30%'],['7x','9,54%'],['8x','10,23%'],['9x','10,91%'],
+      ['10x','11,57%'],['11x','12,24%'],['12x','12,91%']
+    ]
+  },
+  max: {
+    mc: [
+      ['Débito','1,39%'],['Crédito à vista','2,91%'],
+      ['2x','4,68%'],['3x','5,45%'],['4x','6,21%'],['5x','6,95%'],
+      ['6x','7,69%'],['7x','8,47%'],['8x','9,19%'],['9x','9,91%'],
+      ['10x','10,61%'],['11x','11,32%'],['12x','12,01%']
+    ],
+    elo: [
+      ['Débito','1,69%'],['Crédito à vista','3,21%'],
+      ['2x','4,98%'],['3x','5,75%'],['4x','6,51%'],['5x','7,25%'],
+      ['6x','7,99%'],['7x','8,77%'],['8x','9,49%'],['9x','10,21%'],
+      ['10x','10,91%'],['11x','11,62%'],['12x','12,31%']
+    ]
+  },
+  economic: {
+    mc: [
+      ['Débito','1,09%'],['Crédito à vista','2,20%'],
+      ['2x','2,45%'],['3x','2,45%'],['4x','2,45%'],['5x','2,45%'],
+      ['6x','2,45%'],['7x','2,78%'],['8x','2,78%'],['9x','2,78%'],
+      ['10x','2,78%'],['11x','2,78%'],['12x','2,78%']
+    ],
+    elo: [
+      ['Débito','1,39%'],['Crédito à vista','2,50%'],
+      ['2x','2,75%'],['3x','2,75%'],['4x','2,75%'],['5x','2,75%'],
+      ['6x','2,75%'],['7x','3,08%'],['8x','3,08%'],['9x','3,08%'],
+      ['10x','3,08%'],['11x','3,08%'],['12x','3,08%']
+    ]
+  }
+};
+
+const planNames = { flash: 'Flash', max: 'Max', economic: 'Economic' };
+let currentPlan = 'flash';
+let currentFlag = 'mc';
+
+function selectPlan(plan) {
+  currentPlan = plan;
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  document.querySelector('.plan-' + plan).classList.add('selected');
+  document.getElementById('plan-label-rates').textContent = planNames[plan];
+  renderRates();
+}
+
+function toggleRates() {
+  document.getElementById('taxas-detalhe').classList.toggle('hidden');
+  renderRates();
+}
+
+function switchFlag(btn, flag) {
+  currentFlag = flag;
+  document.querySelectorAll('.rates-toggle-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderRates();
+}
+
+function renderRates() {
+  const data = ratesData[currentPlan][currentFlag];
+  const tbody = document.querySelector('#rates-table-body tbody');
+  tbody.innerHTML = '';
+  data.forEach((row, i) => {
+    const tr = document.createElement('tr');
+    if (i <= 1) tr.classList.add('highlight-row');
+    tr.innerHTML = `<td>${row[0]}</td><td>${row[1]}</td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+// Init
+renderRates();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ – Perguntas Frequentes – Yelly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --font-display:'Outfit',sans-serif;
+  --font-body:'Inter',sans-serif;
+  --yellow:#FFD600;--yellow-light:#FFF8CC;--yellow-hover:#ffe333;--yellow-bg:#fffce6;
+  --dark:#1a1a2e;--dark-800:#16213e;
+  --bg:#fafaf8;--radius:16px;--radius-sm:12px;
+  --gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#e5e5e5;--gray-300:#d4d4d4;
+  --gray-400:#a3a3a3;--gray-500:#737373;--gray-600:#525252;--gray-700:#404040;--gray-900:#171717;
+}
+body{font-family:var(--font-body);background:var(--bg);color:var(--gray-900);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+
+/* UTILITIES */
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+@media(min-width:640px){.container{padding:0 24px}}
+@media(min-width:1024px){.container{padding:0 32px}}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--gray-900);font-weight:700;font-size:15px;padding:14px 28px;border-radius:var(--radius-sm);border:none;transition:all .2s;text-decoration:none;cursor:pointer}
+.btn-primary:hover{background:var(--yellow-hover);transform:translateY(-1px)}
+.sec-badge{display:block;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px;text-align:center}
+.sec-title{font-family:var(--font-display);font-size:clamp(24px,3.5vw,40px);font-weight:800;text-align:center;margin-bottom:12px;letter-spacing:-.02em}
+.sec-sub{font-size:16px;color:var(--gray-500);text-align:center;max-width:520px;margin:0 auto 40px;line-height:1.6}
+
+
+/* HERO */
+.hero{background:var(--dark);padding:64px 0 72px;text-align:center;position:relative;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background-image:url('./yelly replit/Yelly Taxas_files/hero-mesh.png');background-size:cover;background-position:center;opacity:.4}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(26,26,46,.9) 0%,rgba(22,33,62,.8) 100%)}
+.hero-inner{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,214,0,.15);border:1px solid rgba(255,214,0,.3);color:var(--yellow);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:20px}
+.hero h1{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:800;color:#fff;margin-bottom:14px;letter-spacing:-.03em}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.65);max-width:500px;margin:0 auto 28px;line-height:1.6}
+
+/* SEARCH */
+.search-section{padding:32px 0;background:#fff;border-bottom:1px solid var(--gray-100);position:sticky;top:64px;z-index:90}
+.search-wrap{max-width:600px;margin:0 auto;position:relative}
+.search-input{width:100%;padding:14px 20px 14px 48px;border:2px solid var(--gray-200);border-radius:var(--radius-sm);font-family:var(--font-body);font-size:15px;color:var(--gray-900);background:#fff;transition:border-color .2s;outline:none}
+.search-input::placeholder{color:var(--gray-400)}
+.search-input:focus{border-color:var(--yellow)}
+.search-icon{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--gray-400);pointer-events:none}
+.search-icon svg{width:18px;height:18px}
+.search-count{text-align:center;margin-top:10px;font-size:13px;color:var(--gray-400);display:none}
+.search-count.show{display:block}
+
+/* CATEGORY TABS */
+.cats-section{padding:24px 0;background:var(--gray-50);border-bottom:1px solid var(--gray-200)}
+.cats-wrap{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.cats-wrap::-webkit-scrollbar{display:none}
+.cat-btn{flex-shrink:0;padding:8px 18px;background:#fff;border:1.5px solid var(--gray-200);border-radius:100px;font-size:13px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:all .2s;white-space:nowrap}
+.cat-btn:hover{border-color:var(--gray-400);color:var(--gray-900)}
+.cat-btn.active{background:var(--dark);border-color:var(--dark);color:#fff}
+
+/* FAQ CONTENT */
+.faq-content{padding:56px 0;background:#fff}
+.faq-layout{display:grid;grid-template-columns:1fr;gap:48px}
+.faq-category{scroll-margin-top:160px}
+.faq-cat-header{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.faq-cat-icon{width:36px;height:36px;background:var(--yellow-light);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.faq-cat-title{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--gray-900)}
+.faq-cat-desc{font-size:13px;color:var(--gray-500);margin-bottom:20px;margin-left:48px}
+.faq-list{border-top:1px solid var(--gray-200)}
+.faq-item{border-bottom:1px solid var(--gray-200)}
+.faq-q{width:100%;text-align:left;padding:18px 0;background:none;border:none;font-size:15px;font-weight:600;color:var(--gray-900);display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;min-height:44px}
+.faq-q svg{flex-shrink:0;transition:transform .25s;color:var(--gray-400)}
+.faq-q.open svg{transform:rotate(45deg)}
+.faq-q.open{color:var(--dark)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;font-size:14px;color:var(--gray-500);line-height:1.7}
+.faq-a.open{max-height:400px;padding-bottom:20px}
+.faq-a p{margin-bottom:8px}
+.faq-a p:last-child{margin-bottom:0}
+
+/* Hidden by search */
+.faq-item.hidden{display:none}
+.faq-category.hidden{display:none}
+
+/* CTA FINAL */
+.cta-section{padding:72px 0;background:var(--yellow-bg);text-align:center;border-top:1px solid rgba(255,214,0,.3)}
+.cta-section h2{font-family:var(--font-display);font-size:clamp(24px,3.5vw,36px);font-weight:800;margin-bottom:10px;letter-spacing:-.02em}
+.cta-section p{font-size:16px;color:var(--gray-500);margin-bottom:28px}
+.btn-wpp{display:inline-flex;align-items:center;gap:8px;background:#25d366;color:#fff;font-weight:700;font-size:15px;padding:14px 28px;border-radius:var(--radius-sm);transition:all .2s;text-decoration:none}
+.btn-wpp:hover{background:#1fb759;transform:translateY(-1px)}
+</style>
+</head>
+<body>
+<script src="components/oferta.js"></script>
+<script src="components/navbar.js"></script>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Ajuda
+      </div>
+      <h1>Perguntas Frequentes</h1>
+      <p class="hero-sub">Encontre resposta para todas as suas dúvidas sobre Yelly. Estamos aqui para ajudar.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SEARCH -->
+<div class="search-section">
+  <div class="container">
+    <div class="search-wrap">
+      <span class="search-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></span>
+      <input class="search-input" type="text" id="faq-search" placeholder="Buscar perguntas... (ex: taxa, entrega, cadastro)" oninput="filterFaq(this.value)">
+    </div>
+    <div class="search-count" id="search-count"></div>
+  </div>
+</div>
+
+<!-- CATEGORY TABS -->
+<div class="cats-section">
+  <div class="container">
+    <div class="cats-wrap">
+      <button class="cat-btn active" onclick="scrollToCategory('produto', this)">📦 Produto</button>
+      <button class="cat-btn" onclick="scrollToCategory('taxas', this)">💰 Taxas</button>
+      <button class="cat-btn" onclick="scrollToCategory('recebimento', this)">🏦 Recebimento</button>
+      <button class="cat-btn" onclick="scrollToCategory('suporte', this)">🎧 Suporte</button>
+      <button class="cat-btn" onclick="scrollToCategory('cadastro', this)">📋 Cadastro</button>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ CONTENT -->
+<section class="faq-content">
+  <div class="container">
+    <div class="faq-layout">
+
+      <!-- PRODUTO -->
+      <div class="faq-category" id="cat-produto">
+        <div class="faq-cat-header">
+          <div class="faq-cat-icon">📦</div>
+          <div class="faq-cat-title">Produto</div>
+        </div>
+        <p class="faq-cat-desc">Tudo sobre a maquininha Yelly — modelos, funcionamento e garantias.</p>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              O que é a maquininha Yelly?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>A Yelly é uma maquininha de cartão com as menores taxas do mercado, pensada para pequenos e médios empreendedores. Aceita crédito, débito e Pix, funciona 100% sem mensalidade e sem contrato de fidelidade.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Quais modelos de maquininha existem?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p><strong>Yelly Mini:</strong> Compacta e portátil, ideal para autônomos e profissionais que atendem em vários locais.</p><p><strong>Yelly Pro:</strong> Tela maior, bateria de longa duração, perfeita para lojas com movimento moderado.</p><p><strong>Yelly Smart:</strong> Display touch, impressora térmica integrada, ideal para restaurantes e lojas de alto volume.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Qual modelo é o melhor para mim?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Depende do seu perfil: se você é autônomo ou atende clientes em vários locais, a Mini é ideal. Para lojas com movimento moderado, a Pro é a escolha certa. Para restaurantes ou alto volume, a Smart é a mais indicada. Veja a página <a href="yelly-para-quem-e.html" style="color:var(--dark);font-weight:600">Para Quem É</a> para descobrir o seu perfil.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              A máquina é realmente minha depois de comprar?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Sim, 100%. Ao adquirir a maquininha Yelly, ela é sua. Não cobramos aluguel mensal nem taxa de manutenção. Você paga uma vez pelo equipamento e pronto — é seu para sempre.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              E se a maquininha quebrar?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Todas as maquininhas Yelly vêm com garantia vitalícia contra defeitos de fabricação. Em caso de defeito comprovado, substituímos o aparelho sem custo. Nossa equipe de suporte avalia o problema e resolve rapidamente via WhatsApp.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Posso devolver a maquininha?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Sim. Você tem 7 dias corridos após o recebimento para devolver, conforme o Código de Defesa do Consumidor. O produto deve estar em perfeito estado e na embalagem original. Entre em contato com nosso suporte para iniciar o processo de devolução.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAXAS -->
+      <div class="faq-category" id="cat-taxas">
+        <div class="faq-cat-header">
+          <div class="faq-cat-icon">💰</div>
+          <div class="faq-cat-title">Taxas</div>
+        </div>
+        <p class="faq-cat-desc">Entenda como as taxas funcionam e por que Yelly é mais barato.</p>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Como funciona a cobrança de taxa?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>A taxa é descontada automaticamente de cada venda realizada. Por exemplo: se você vende R$ 100 no crédito à vista com taxa de 1,99%, recebe R$ 98,01. Não há cobrança antecipada, mensalidade ou taxa fixa — você só paga sobre o que vende.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              É realmente 0,75% no crédito parcelado?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Sim! A taxa de 0,75% se aplica ao crédito parcelado no plano Economic (recebimento conforme parcelas). Para recebimento antecipado (em 1 dia útil ou na hora), as taxas são maiores para cobrir o custo do adiantamento. Consulte a <a href="yelly-taxas-v4.html" style="color:var(--dark);font-weight:600">página de Taxas</a> para a tabela completa.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Qual taxa devo escolher?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p><strong>Flash:</strong> Se você precisa do dinheiro na hora, sem esperar. Taxa maior, recebimento imediato.</p><p><strong>Max:</strong> A mais popular. Recebe em 1 dia útil com taxa equilibrada. Boa para a maioria dos negócios.</p><p><strong>Economic:</strong> Se você parcela muito e não precisa do dinheiro imediatamente. Menor taxa de todas.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Existe taxa de juros?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Não há taxa de juros adicional para o lojista. O percentual cobrado por transação já inclui todos os custos — processamento, bandeira e antecipação (quando aplicável). Sem surpresas na fatura.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Existe taxa de mensalidade ou manutenção?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Não. Yelly não cobra mensalidade, aluguel de máquina ou taxa de manutenção. Você paga apenas pelo equipamento na aquisição e a taxa por transação quando vende. Meses sem venda = zero custo.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECEBIMENTO -->
+      <div class="faq-category" id="cat-recebimento">
+        <div class="faq-cat-header">
+          <div class="faq-cat-icon">🏦</div>
+          <div class="faq-cat-title">Recebimento</div>
+        </div>
+        <p class="faq-cat-desc">Como e quando o dinheiro das suas vendas chega na sua conta.</p>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Em quanto tempo recebo o dinheiro?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Depende do plano escolhido:</p><p><strong>Flash:</strong> Na hora da venda (recebimento imediato).</p><p><strong>Max:</strong> Em 1 dia útil após a venda.</p><p><strong>Economic:</strong> Conforme as parcelas são liquidadas (30/60/90 dias e assim por diante).</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Como o dinheiro chega na minha conta?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Via transferência bancária automática para a conta que você cadastrou no momento da solicitação. Você recebe uma notificação no app e por SMS a cada transferência realizada. Não é necessário solicitar — cai automaticamente.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Qual banco posso usar para receber?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Qualquer banco brasileiro. Bradesco, Itaú, Santander, BB, Caixa, Nubank, Inter, C6, PicPay, Mercado Pago e demais bancos digitais. Precisa ser conta corrente ou conta de pagamento em seu CPF ou CNPJ cadastrado.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Posso mudar de plano de recebimento?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Sim. Você pode alternar entre os planos Flash, Max e Economic quando quiser pelo app Yelly. A mudança vale para as próximas transações. As vendas já realizadas mantêm o plano que estava ativo no momento da venda.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUPORTE -->
+      <div class="faq-category" id="cat-suporte">
+        <div class="faq-cat-header">
+          <div class="faq-cat-icon">🎧</div>
+          <div class="faq-cat-title">Suporte</div>
+        </div>
+        <p class="faq-cat-desc">Como falar com a nossa equipe e resolver problemas.</p>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Como falo com o suporte da Yelly?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Pelo WhatsApp: <strong>(11) 99999-9999</strong> — nosso canal mais rápido. Também atendemos pelo e-mail suporte@yelly.com.br e pelo chat dentro do app. Preferimos WhatsApp pois resolvemos mais rápido por lá.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Qual é o horário de atendimento?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Atendemos 7 dias por semana, de segunda a domingo, das 8h às 22h (horário de Brasília). Fora desse horário, você pode enviar mensagem e respondemos assim que a equipe retornar às atividades.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Qual é o tempo de resposta?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Pelo WhatsApp, respondemos em até 5 minutos durante o horário de atendimento. Por e-mail, o prazo é de até 4 horas. Problemas urgentes (máquina parada, pagamento não processado) têm atendimento prioritário.</p></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CADASTRO -->
+      <div class="faq-category" id="cat-cadastro">
+        <div class="faq-cat-header">
+          <div class="faq-cat-icon">📋</div>
+          <div class="faq-cat-title">Cadastro</div>
+        </div>
+        <p class="faq-cat-desc">O que você precisa para solicitar sua maquininha Yelly.</p>
+        <div class="faq-list">
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Preciso ter CNPJ para comprar a maquininha?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Não. Pessoa Física com CPF pode solicitar normalmente. Se você é MEI, microempresa ou empresa de qualquer porte, também aceitamos CNPJ. O cadastro funciona para ambos os perfis.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Qual documentação preciso para o cadastro?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Apenas informações básicas: nome completo, CPF ou CNPJ, endereço de entrega e dados bancários para recebimento. Não exigimos documentos físicos, selfie com documento, comprovante de renda ou análise de crédito.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              Quanto tempo leva para ser aprovado?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>O cadastro e a aprovação são feitos em minutos, tudo online. Após preencher o formulário, você recebe a confirmação por e-mail em até 30 minutos. A maquininha é despachada em 1 a 2 dias úteis após a aprovação.</p></div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-q" onclick="toggleFaq(this)">
+              É seguro cadastrar meus dados na Yelly?
+              <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+            </button>
+            <div class="faq-a"><p>Sim. Todos os dados são protegidos com criptografia SSL de 256 bits, o mesmo padrão utilizado por bancos. Seguimos a LGPD (Lei Geral de Proteção de Dados) e nunca compartilhamos seus dados com terceiros sem autorização.</p></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="container">
+    <span class="sec-badge">Ainda com dúvidas?</span>
+    <h2>Fale com a nossa equipe</h2>
+    <p>Estamos prontos para responder qualquer dúvida. Resposta em até 5 minutos.</p>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+      <a href="https://wa.me/5511999999999" class="btn-wpp" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Falar pelo WhatsApp
+      </a>
+      <a href="yelly-comprar.html" class="btn-primary">Solicitar Maquininha ↗</a>
+    </div>
+  </div>
+</section>
+
+
+<script>
+function toggleFaq(btn){const a=btn.nextElementSibling;const open=btn.classList.contains('open');document.querySelectorAll('.faq-q').forEach(b=>{b.classList.remove('open');b.nextElementSibling.classList.remove('open');});if(!open){btn.classList.add('open');a.classList.add('open');}}
+
+function scrollToCategory(id, btn){
+  document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const el = document.getElementById('cat-'+id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function filterFaq(query){
+  const q = query.toLowerCase().trim();
+  const countEl = document.getElementById('search-count');
+  if(!q){
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('hidden'));
+    document.querySelectorAll('.faq-category').forEach(c=>c.classList.remove('hidden'));
+    countEl.classList.remove('show');
+    return;
+  }
+  let totalVisible = 0;
+  document.querySelectorAll('.faq-category').forEach(cat => {
+    let catVisible = 0;
+    cat.querySelectorAll('.faq-item').forEach(item => {
+      const text = item.textContent.toLowerCase();
+      if(text.includes(q)){
+        item.classList.remove('hidden');
+        catVisible++;
+        totalVisible++;
+      } else {
+        item.classList.add('hidden');
+      }
+    });
+    if(catVisible === 0){
+      cat.classList.add('hidden');
+    } else {
+      cat.classList.remove('hidden');
+    }
+  });
+  countEl.textContent = totalVisible + (totalVisible === 1 ? ' resultado encontrado' : ' resultados encontrados');
+  countEl.classList.add('show');
+}
+</script>
+<script src="components/footer.js"></script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+{
+  "plans": {
+    "flash": {
+      "name": "Flash",
+      "recv": "Recebimento na hora",
+      "recvShort": "Na hora",
+      "highlight": "Perfeito para quem precisa do dinheiro na hora",
+      "discount": 50,
+      "discountLabel": "50% OFF maquininha",
+      "mc": {
+        "deb": 1.39,
+        "cred": 3.15,
+        "2x": 5.16,
+        "3x": 5.87,
+        "4x": 6.59,
+        "5x": 7.29,
+        "6x": 8.00,
+        "7x": 9.24,
+        "8x": 9.93,
+        "9x": 10.61,
+        "10x": 11.27,
+        "11x": 11.94,
+        "12x": 12.61
+      },
+      "elo": {
+        "deb": 1.69,
+        "cred": 3.45,
+        "2x": 5.46,
+        "3x": 6.17,
+        "4x": 6.89,
+        "5x": 7.59,
+        "6x": 8.30,
+        "7x": 9.54,
+        "8x": 10.23,
+        "9x": 10.91,
+        "10x": 11.57,
+        "11x": 12.24,
+        "12x": 12.91
+      },
+      "outras": {
+        "deb": 1.99,
+        "cred": 3.75,
+        "2x": 5.76,
+        "3x": 6.47,
+        "4x": 7.19,
+        "5x": 7.89,
+        "6x": 8.60,
+        "7x": 9.84,
+        "8x": 10.53,
+        "9x": 11.21,
+        "10x": 11.87,
+        "11x": 12.54,
+        "12x": 13.21
+      }
+    },
+    "max": {
+      "name": "Max",
+      "recv": "Recebimento em 1 dia util",
+      "recvShort": "1 dia util",
+      "highlight": "Melhor custo-beneficio para a maioria dos negocios",
+      "discount": 0,
+      "discountLabel": "",
+      "mc": {
+        "deb": 1.39,
+        "cred": 2.91,
+        "2x": 4.68,
+        "3x": 5.45,
+        "4x": 6.21,
+        "5x": 6.95,
+        "6x": 7.69,
+        "7x": 8.47,
+        "8x": 9.19,
+        "9x": 9.91,
+        "10x": 10.61,
+        "11x": 11.32,
+        "12x": 12.01
+      },
+      "elo": {
+        "deb": 1.69,
+        "cred": 3.21,
+        "2x": 4.98,
+        "3x": 5.75,
+        "4x": 6.51,
+        "5x": 7.25,
+        "6x": 7.99,
+        "7x": 8.77,
+        "8x": 9.49,
+        "9x": 10.21,
+        "10x": 10.91,
+        "11x": 11.62,
+        "12x": 12.31
+      },
+      "outras": {
+        "deb": 1.99,
+        "cred": 3.51,
+        "2x": 5.28,
+        "3x": 6.05,
+        "4x": 6.81,
+        "5x": 7.55,
+        "6x": 8.29,
+        "7x": 9.07,
+        "8x": 9.79,
+        "9x": 10.51,
+        "10x": 11.21,
+        "11x": 11.92,
+        "12x": 12.61
+      }
+    },
+    "economic": {
+      "name": "Economic",
+      "recv": "Recebimento conforme parcelas",
+      "recvShort": "Conforme parcelas",
+      "highlight": "As menores taxas do mercado, para maximizar seu lucro",
+      "discount": 30,
+      "discountLabel": "30% OFF maquininha",
+      "mc": {
+        "deb": 1.09,
+        "cred": 2.20,
+        "2x": 2.45,
+        "3x": 2.45,
+        "4x": 2.45,
+        "5x": 2.45,
+        "6x": 2.45,
+        "7x": 2.78,
+        "8x": 2.78,
+        "9x": 2.78,
+        "10x": 2.78,
+        "11x": 2.78,
+        "12x": 2.78
+      },
+      "elo": {
+        "deb": 1.39,
+        "cred": 2.50,
+        "2x": 2.75,
+        "3x": 2.75,
+        "4x": 2.75,
+        "5x": 2.75,
+        "6x": 2.75,
+        "7x": 3.08,
+        "8x": 3.08,
+        "9x": 3.08,
+        "10x": 3.08,
+        "11x": 3.08,
+        "12x": 3.08
+      },
+      "outras": {
+        "deb": 1.69,
+        "cred": 2.80,
+        "2x": 3.05,
+        "3x": 3.05,
+        "4x": 3.05,
+        "5x": 3.05,
+        "6x": 3.05,
+        "7x": 3.38,
+        "8x": 3.38,
+        "9x": 3.38,
+        "10x": 3.38,
+        "11x": 3.38,
+        "12x": 3.38
+      }
+    }
+  },
+  "machines": [
+    {
+      "id": "mini",
+      "name": "Yelly Mini",
+      "desc": "Compacta e portatil. Ideal para quem esta comecando.",
+      "img": "./yelly replit/Yelly Taxas_files/machine-mini.png",
+      "basePrice": 297,
+      "origPrice": 399,
+      "installments": 12
+    },
+    {
+      "id": "pro",
+      "name": "Yelly Pro",
+      "desc": "Tela grande e bobina integrada. Para quem vende muito.",
+      "img": "./yelly replit/Yelly Taxas_files/machine-pro.png",
+      "basePrice": 397,
+      "origPrice": 699,
+      "installments": 12
+    },
+    {
+      "id": "smart",
+      "name": "Yelly Smart",
+      "desc": "Sistema Android completo. A mais poderosa do mercado.",
+      "img": "./yelly replit/Yelly Taxas_files/84ab459b-6d57-4284-9f56-9219c015813c.png",
+      "basePrice": 497,
+      "origPrice": 799,
+      "installments": 12
+    }
+  ],
+  "competitor": {
+    "name": "Concorrente",
+    "avgTaxRate": 15.5
+  }
+}

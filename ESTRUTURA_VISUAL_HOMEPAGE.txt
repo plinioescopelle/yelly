@@ -1,0 +1,264 @@
+═══════════════════════════════════════════════════════════════════════════════
+                    WIREFRAME: NOVA HOMEPAGE YELLY
+                     (Sem cores/design, apenas estrutura)
+═══════════════════════════════════════════════════════════════════════════════
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              [NAVBAR]                                       │
+│  Logo | Planos | Máquinas | FAQ | Contato                    [Solicitar]   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│  ┌─────────────────────────────┐  ┌──────────────────────────────┐          │
+│  │ [HERO LEFT]                 │  │ [HERO RIGHT]                 │          │
+│  │                             │  │                              │          │
+│  │ Receba Mais, Pague Menos    │  │       [MÁQUINA OU VISUAL]    │          │
+│  │ de Taxa                     │  │                              │          │
+│  │                             │  │                              │          │
+│  │ Maquininha + Internet Grátis│  │                              │          │
+│  │ para Sempre                 │  │                              │          │
+│  │                             │  │                              │          │
+│  │ 50 mil clientes já economizam│  │                              │          │
+│  │                             │  │                              │          │
+│  │ [CTA] Solicitar Agora       │  │                              │          │
+│  │ [CTA] Simular Economia      │  │                              │          │
+│  └─────────────────────────────┘  └──────────────────────────────┘          │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          [TRUST STRIP - DARK]                              │
+│                                                                              │
+│  [Nº GRANDE]        [Nº GRANDE]        [Nº GRANDE]        [Nº GRANDE]      │
+│   50 mil            4.8/5 ⭐            0% Juro             Garantia        │
+│   clientes          Google Play         Parcelamento        Vitalícia       │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    SEÇÃO 1: "Quanto Você Está Perdendo?"                   │
+│                                                                              │
+│  ┌───────────────────────────────┐  ┌──────────────────────────────┐       │
+│  │ [LEFT]                        │  │ [RIGHT]                      │       │
+│  │                               │  │                              │       │
+│  │ Qual seu faturamento?         │  │  VOCÊ PERDE                  │       │
+│  │                               │  │  R$ 650/mês                  │       │
+│  │ [INPUT] R$ 10.000             │  │                              │       │
+│  │                               │  │  Yelly custa: R$ 220/mês    │       │
+│  │                               │  │  Economia: R$ 430/mês ✓      │       │
+│  │                               │  │                              │       │
+│  │                               │  │  [CTA] Ver Nossos Planos     │       │
+│  └───────────────────────────────┘  └──────────────────────────────┘       │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       SEÇÃO 2: "Como Funciona (3 Passos)"                  │
+│                                                                              │
+│  ┌──────────────┐    ┌──────────────┐    ┌──────────────┐                 │
+│  │     [1]      │    │     [2]      │    │     [3]      │                 │
+│  │              │    │              │    │              │                 │
+│  │  [ÍCONE]     │    │  [ÍCONE]     │    │  [ÍCONE]     │                 │
+│  │              │    │              │    │              │                 │
+│  │ Escolha      │    │ Escolha      │    │ Pronto para  │                 │
+│  │ seu Plano    │    │ Máquina      │    │ Vender       │                 │
+│  │              │    │              │    │              │                 │
+│  │ Flash, Max,  │    │ Mini, Pro,   │    │ Aprovação em │                 │
+│  │ Economic     │    │ Smart        │    │ minutos      │                 │
+│  └──────────────┘    └──────────────┘    └──────────────┘                 │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                  SEÇÃO 3: "Transparência Garantida"                         │
+│                                                                              │
+│  Saiba Exatamente o Quanto Vai Receber                                      │
+│                                                                              │
+│  ┌────────────────────┐  ┌────────────────────┐  ┌────────────────────┐   │
+│  │ [CARD]             │  │ [CARD]             │  │ [CARD]             │   │
+│  │ 0% de Juro         │  │ Sem Mensalidade    │  │ Cálculo Claro      │   │
+│  │                    │  │                    │  │                    │   │
+│  │ Sem taxa de        │  │ Pague só por venda │  │ Veja todas as      │   │
+│  │ parcelamento       │  │ realizada          │  │ taxas detalhadas   │   │
+│  │                    │  │                    │  │                    │   │
+│  │                    │  │                    │  │ [LINK → Taxas]     │   │
+│  └────────────────────┘  └────────────────────┘  └────────────────────┘   │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                   SEÇÃO 4: "O Que Você Ganha com Yelly"                    │
+│                                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                        │
+│  │   [ICON]    │  │   [ICON]    │  │   [ICON]    │                        │
+│  │             │  │             │  │             │                        │
+│  │ Internet     │  │ Garantia    │  │ Sem Aluguel │                        │
+│  │ Grátis      │  │ Vitalícia   │  │             │                        │
+│  │             │  │             │  │ Você é      │                        │
+│  │ Para sempre, │  │ Quebrou?    │  │ dono da     │                        │
+│  │ sem taxa    │  │ Trocamos    │  │ máquina     │                        │
+│  └─────────────┘  └─────────────┘  └─────────────┘                        │
+│                                                                              │
+│  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐                        │
+│  │   [ICON]    │  │   [ICON]    │  │   [ICON]    │                        │
+│  │             │  │             │  │             │                        │
+│  │ Atendimento │  │ Pix + Todas │  │ Sem         │                        │
+│  │ 7 Dias      │  │ Bandeiras   │  │ Fidelização │                        │
+│  │             │  │             │  │             │                        │
+│  │ Via WhatsApp,│  │ Crédito,    │  │ Parou de    │                        │
+│  │ humanizado  │  │ débito, Pix │  │ usar? Devol │                        │
+│  └─────────────┘  └─────────────┘  └─────────────┘                        │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                   SEÇÃO 5: "Veja Quem Já Economiza"                        │
+│                                                                              │
+│  ┌────────────────────────────┐  ┌────────────────────────────┐            │
+│  │ [AVATAR]                   │  │ [AVATAR]                   │            │
+│  │ João - Sorveteria          │  │ Maria - Loja de Roupas     │            │
+│  │                            │  │                            │            │
+│  │ ⭐⭐⭐⭐⭐                        │  │ ⭐⭐⭐⭐⭐                        │            │
+│  │                            │  │                            │            │
+│  │ "Reduzi taxa de 3.5% para  │  │ "Sem contrato, sem surpresa│            │
+│  │ 2.2%. Ganhei R$ 500/mês    │  │. Finalmente confio nas minhas│            │
+│  │ extra"                     │  │ taxas"                     │            │
+│  └────────────────────────────┘  └────────────────────────────┘            │
+│                                                                              │
+│  ┌────────────────────────────┐                                           │
+│  │ [AVATAR]                   │                                           │
+│  │ Carlos - Restaurante       │                                           │
+│  │                            │                                           │
+│  │ ⭐⭐⭐⭐⭐                        │                                           │
+│  │                            │                                           │
+│  │ "A internet grátis economiza│                                           │
+│  │ mais R$ 100/mês para mim"   │                                           │
+│  └────────────────────────────┘                                           │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│               SEÇÃO 6: "Quer Ver Exatamente Quanto Vai Ganhar?"             │
+│                                                                              │
+│              [CTA DESTACADA] Simular Economia Agora                         │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                    SEÇÃO 7: "Perguntas Frequentes"                         │
+│                                                                              │
+│  ▼ Preciso de CNPJ para usar Yelly?                                        │
+│    Não, CPF também funciona. Temos soluções para PJ, MEI e PF.             │
+│                                                                              │
+│  ▼ Qual é a taxa de juros?                                                 │
+│    Zero. Você não paga juros de parcelamento.                              │
+│                                                                              │
+│  ▼ E se a máquina quebrar?                                                 │
+│    Garantia vitalícia. Trocamos de graça, sem burocracia.                  │
+│                                                                              │
+│  ▼ Tem contrato com fidelização?                                           │
+│    Não. Sem contrato vinculado, sem amarração.                             │
+│                                                                              │
+│  ▼ Como funciona a aprovação?                                              │
+│    Em minutos, 100% online. Cadastro rápido e simples.                     │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                      SEÇÃO 8: "Comece Agora"                               │
+│                                                                              │
+│               Está Pronto para Aumentar Seus Lucros?                        │
+│                                                                              │
+│                   Aprovação rápida, sem burocracia                          │
+│                                                                              │
+│                                                                              │
+│            [CTA GRANDE] Solicitar Minha Maquininha Agora                    │
+│                                                                              │
+│                                                                              │
+│         Primeiros 100 solicitantes: Internet grátis por 1 ano ⏰             │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                              [FOOTER]                                       │
+│                                                                              │
+│  Yelly | Termos | Privacidade | Contato | WhatsApp | Instagram | LinkedIn  │
+│                                                                              │
+│  © 2026 Yelly. Tecnologia em Pagamentos.                                   │
+│                                                                              │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+MOBILE VERSION (Simplificado):
+─────────────────────────────────────────────────────────────────────────────
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ [NAVBAR MOBILE] ☰                                  [Solicitar] ↑ STICKY    │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│ Receba Mais, Pague Menos de Taxa                                           │
+│                                                                              │
+│ Internet Grátis para Sempre                                                │
+│                                                                              │
+│ [CTA FULL WIDTH] Solicitar Agora                                           │
+│ [CTA FULL WIDTH] Simular Economia                                          │
+│                                                                              │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                          [TRUST STRIP - DARK]                              │
+│ 50 mil | 4.8⭐ | 0% Juro | Garantia                                        │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ [SEÇÃO 1: Calculadora]                                                     │
+│ [INPUT] R$ 10.000                                                          │
+│ ECONOMIZA R$ 430/mês ✓                                                     │
+│ [CTA] Ver Planos                                                           │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ [SEÇÃO 2: 3 Passos] (VERTICAL)                                             │
+│ 1 [ICON] Escolha Plano                                                     │
+│ 2 [ICON] Escolha Máquina                                                   │
+│ 3 [ICON] Comece a Vender                                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ [SEÇÃO 3: Cards] (VERTICAL)                                                │
+│ • Internet Grátis                                                          │
+│ • Garantia Vitalícia                                                       │
+│ • Sem Aluguel                                                              │
+│ • Atendimento 7 Dias                                                       │
+│ • Pix + Bandeiras                                                          │
+│ • Sem Fidelização                                                          │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ [SEÇÃO 4: Depoimentos] (VERTICAL)                                          │
+│ [Card 1] João / Sorveteria / ⭐⭐⭐⭐⭐                                       │
+│ "Economizei R$ 500/mês"                                                    │
+│ [Card 2] Maria / Loja / ⭐⭐⭐⭐⭐                                            │
+│ "Confio nas minhas taxas"                                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ [CTA] Simular Minha Economia                                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ [FAQ] (Expandir/Recolher)                                                  │
+│ ▼ Preciso de CNPJ?                                                         │
+│ ▼ Taxa de juros?                                                           │
+│ ▼ Se quebrar?                                                              │
+│ ▼ Tem contrato?                                                            │
+│ ▼ Como aprova?                                                             │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Está pronto para aumentar lucros?                                          │
+│ [CTA FULL WIDTH] Solicitar Agora                                           │
+│ Primeiros 100: Internet 1 ano grátis ⏰                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│ Footer                                                                      │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════════════
+
+OBSERVAÇÕES IMPORTANTES:
+
+1. ALTURA MÍNIMA HERO: Deve ocupar 55-70vh (mesmo padrão página de taxas)
+2. SCROLL SMOOTH: Botão "Ver Planos" desce suave para próxima seção
+3. STICKY CTA: Mantém o mesmo sticky CTA de maquininha da página de taxas
+4. LINKS INTERNOS:
+   - "Ver Planos" → Scroll para seção 2 (3 passos) OU página de taxas
+   - "Ver Todas as Taxas" → Página de taxas (já existe)
+   - "Simular" → Simulador da página de taxas (já existe)
+5. MOBILE: Botões 100% width, touch targets > 44px
+6. IMAGEM HERO: Machine-smart.png (já temos, conforme mudança anterior)
+
+═══════════════════════════════════════════════════════════════════════════════

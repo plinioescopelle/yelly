@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Yelly Site (Static Server)",
+      "runtimeExecutable": "/usr/bin/ruby",
+      "runtimeArgs": ["-e", "require 'webrick'; WEBrick::HTTPServer.new(:Port=>8080,:DocumentRoot=>'/Users/plinioescopelle/Documents/Yelly').start"],
+      "port": 8080
+    }
+  ]
+}

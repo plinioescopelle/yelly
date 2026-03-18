@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Yelly — Maquininhas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-body:'Inter',sans-serif;
+  --font-display:'Outfit',sans-serif;
+  --yellow:#FFD600;--yellow-light:#FFF8CC;--yellow-hover:#ffe333;--yellow-bg:#fffce6;
+  --dark:#1a1a2e;--dark-800:#16213e;
+  --green:#22c55e;--green-light:#dcfce7;
+  --gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#e5e5e5;--gray-300:#d4d4d4;
+  --gray-400:#a3a3a3;--gray-500:#737373;--gray-600:#525252;--gray-700:#404040;--gray-900:#171717;
+  --bg:#fafaf8;--radius:16px;--radius-sm:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--gray-900);line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--yellow);color:var(--gray-900)}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+@media(min-width:640px){.container{padding:0 24px}}
+@media(min-width:1024px){.container{padding:0 32px}}
+
+
+/* ── HERO ── */
+.hero{padding:64px 0 48px;text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--yellow-light);border:1px solid rgba(255,214,0,.4);color:var(--gray-700);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:7px 18px;border-radius:100px;margin-bottom:24px}
+.hero h1{font-family:var(--font-display);font-size:clamp(32px,5vw,60px);font-weight:800;line-height:1.05;letter-spacing:-.025em;color:var(--gray-900);margin-bottom:16px}
+.hero h1 span{color:var(--gray-400)}
+.hero p{font-size:17px;color:var(--gray-500);max-width:500px;margin:0 auto 32px;line-height:1.65}
+.hero-trust{display:flex;align-items:center;justify-content:center;gap:24px;flex-wrap:wrap}
+.hero-trust-item{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--gray-600);font-weight:500}
+.hero-trust-item svg{width:16px;height:16px;color:var(--green)}
+
+/* ── STEP HEADERS ── */
+.step-header{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+.step-num{width:32px;height:32px;border-radius:50%;background:var(--dark);color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.step-title{font-family:var(--font-display);font-size:22px;font-weight:700}
+.step-sub{font-size:14px;color:var(--gray-500);margin-top:2px}
+.step-sub strong{color:var(--gray-900)}
+
+/* ── SECTION DIVIDERS ── */
+.section{padding:56px 0}
+.section + .section{border-top:1px solid var(--gray-100)}
+
+/* ── RECEIPT TOGGLE ── */
+.recv-toggle{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+.recv-label{font-size:14px;font-weight:500;color:var(--gray-600);margin-right:4px}
+.recv-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 18px;border-radius:100px;border:1.5px solid var(--gray-200);background:#fff;color:var(--gray-600);font-size:13px;font-weight:600;transition:all .2s}
+.recv-btn:hover{border-color:var(--gray-300)}
+.recv-btn.active{border-color:var(--dark);background:var(--dark);color:#fff}
+
+/* ── PLAN CARDS ── */
+.plans-row{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+@media(max-width:768px){.plans-row{grid-template-columns:1fr;max-width:400px;margin:0 auto 40px}}
+.plan-card{background:#fff;border:2px solid var(--gray-200);border-radius:var(--radius);padding:28px 24px;cursor:pointer;transition:all .25s;position:relative}
+.plan-card:hover{border-color:var(--gray-300);box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.plan-card.selected{border-color:var(--yellow);box-shadow:0 0 0 1px var(--yellow),0 6px 28px rgba(255,214,0,.12)}
+.plan-card .radio{position:absolute;top:20px;right:20px;width:20px;height:20px;border-radius:50%;border:2px solid var(--gray-300);transition:all .2s;display:flex;align-items:center;justify-content:center}
+.plan-card.selected .radio{border-color:var(--yellow);background:var(--yellow)}
+.plan-card.selected .radio::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+.plan-badge{display:inline-block;background:var(--dark);color:var(--yellow);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 10px;border-radius:6px;margin-bottom:10px}
+.plan-name{font-family:var(--font-display);font-size:22px;font-weight:700;margin-bottom:14px}
+.plan-rates-row{display:flex;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.plan-rate-box{text-align:center;flex:1;min-width:70px}
+.plan-rate-val{font-family:var(--font-display);font-size:26px;font-weight:800;line-height:1.1}
+.plan-rate-val sub{font-size:14px;font-weight:600;vertical-align:baseline}
+.plan-rate-lbl{font-size:11px;color:var(--gray-500);text-transform:uppercase;letter-spacing:.03em;margin-top:2px}
+.plan-highlight{background:var(--yellow-bg);color:var(--gray-700);font-size:13px;font-weight:500;padding:10px 14px;border-radius:var(--radius-sm);text-align:center;margin-bottom:10px;line-height:1.4}
+.plan-note{font-size:12px;color:var(--gray-400);text-align:center}
+
+/* ── MACHINE CARDS ── */
+.machines-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:900px){.machines-grid{grid-template-columns:1fr;max-width:420px;margin:0 auto}}
+.m-card{background:#fff;border:2px solid var(--gray-200);border-radius:var(--radius);padding:28px 24px;text-align:center;transition:all .25s;display:flex;flex-direction:column;position:relative;cursor:pointer}
+.m-card:hover{border-color:var(--gray-300);box-shadow:0 4px 24px rgba(0,0,0,.06);transform:translateY(-2px)}
+.m-card.featured{border-color:var(--yellow);box-shadow:0 0 0 1px var(--yellow),0 8px 32px rgba(255,214,0,.14)}
+.m-best-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--dark);color:var(--yellow);font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:5px 14px;border-radius:100px;white-space:nowrap}
+.m-img{height:180px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.m-img-placeholder{width:120px;height:160px;background:linear-gradient(135deg,var(--gray-100),var(--gray-50));border-radius:16px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--gray-400)}
+.m-tag{display:inline-block;background:var(--yellow-light);color:var(--gray-700);font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;margin-bottom:8px}
+.m-name{font-family:var(--font-display);font-size:22px;font-weight:800;margin-bottom:4px}
+.m-tagline{font-size:13px;color:var(--gray-500);margin-bottom:16px;line-height:1.4}
+.m-price-row{margin-bottom:8px}
+.m-price-old{font-size:13px;color:var(--gray-400);text-decoration:line-through;margin-bottom:2px}
+.m-price-main{font-size:14px;color:var(--gray-600)}
+.m-price-main strong{font-family:var(--font-display);font-size:36px;font-weight:800;color:var(--gray-900)}
+.m-price-cash{font-size:12px;color:var(--gray-500);margin-bottom:12px}
+.m-shipping{display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;color:var(--green);font-weight:600;margin-bottom:16px}
+.m-cta{width:100%;padding:13px;border-radius:var(--radius-sm);font-size:14px;font-weight:700;border:none;transition:all .2s;margin-bottom:16px}
+.m-cta-primary{background:var(--yellow);color:var(--gray-900)}
+.m-cta-primary:hover{background:var(--yellow-hover)}
+.m-cta-secondary{background:var(--gray-100);color:var(--gray-700)}
+.m-cta-secondary:hover{background:var(--gray-200)}
+.m-features{list-style:none;text-align:left;border-top:1px solid var(--gray-100);padding-top:14px;margin-top:auto}
+.m-features li{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--gray-600);padding:5px 0}
+.m-features li svg{width:16px;height:16px;flex-shrink:0;color:var(--green)}
+.m-features li.miss{color:var(--gray-400)}
+.m-features li.miss svg{color:var(--gray-300)}
+
+/* ── COMPARISON TABLE ── */
+.compare-wrap{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+.compare-table{width:100%;border-collapse:collapse}
+.compare-table thead tr{background:var(--dark)}
+.compare-table thead th{padding:12px 16px;font-family:var(--font-display);font-size:15px;font-weight:700;color:#fff;text-align:left}
+.compare-table thead th:first-child{width:40%}
+.compare-table thead th:not(:first-child){text-align:center;color:var(--yellow)}
+.compare-table tbody tr{border-bottom:1px solid var(--gray-100)}
+.compare-table tbody tr:last-child{border-bottom:none}
+.compare-table tbody tr:hover{background:var(--gray-50)}
+.compare-table td{padding:8px 16px;font-size:14px;color:var(--gray-700);text-align:left}
+.compare-table td:not(:first-child){text-align:center;font-weight:600}
+.compare-table td.yes{color:var(--green)}
+.compare-table td.no{color:var(--gray-300)}
+.compare-table .section-row td{background:var(--gray-50);font-size:12px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.06em;padding:10px 20px}
+@media(max-width:600px){
+  .compare-table thead th,.compare-table td{padding:12px 12px;font-size:13px}
+  .compare-table thead th:first-child,.compare-table td:first-child{font-size:12px}
+}
+
+/* ── SIMULATOR ── */
+.sim-wrap{display:grid;grid-template-columns:1fr 1.2fr;gap:0;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+@media(max-width:768px){.sim-wrap{grid-template-columns:1fr}}
+.sim-left{padding:32px;border-right:1px solid var(--gray-100)}
+@media(max-width:768px){.sim-left{border-right:none;border-bottom:1px solid var(--gray-100)}}
+.sim-left label{display:block;font-size:12px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px}
+.sim-left select,.sim-left input{width:100%;padding:12px 14px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:14px;color:var(--gray-900);background:#fff;margin-bottom:16px;transition:border .2s}
+.sim-left select:focus,.sim-left input:focus{outline:none;border-color:var(--yellow)}
+.sim-right{padding:32px;display:flex;flex-direction:column;justify-content:center}
+.sim-result-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px}
+.sim-result-card{background:var(--gray-50);border:1px solid var(--gray-100);border-radius:var(--radius-sm);padding:16px}
+.sim-result-card.highlight{background:var(--yellow-bg);border-color:rgba(255,214,0,.3)}
+.sim-result-card .r-label{font-size:12px;font-weight:600;color:var(--gray-500);margin-bottom:4px}
+.sim-result-card .r-val{font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--gray-900);line-height:1.2}
+.sim-result-card .r-val sub{font-size:13px}
+.sim-note{font-size:12px;color:var(--gray-400);line-height:1.6}
+.sim-eco-banner{background:var(--dark);color:#fff;border-radius:var(--radius-sm);padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sim-eco-banner .eco-label{font-size:13px;opacity:.8}
+.sim-eco-banner .eco-val{font-family:var(--font-display);font-size:28px;font-weight:800;color:var(--yellow)}
+
+/* ── FAQ ── */
+.faq-list{display:flex;flex-direction:column;gap:0;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+.faq-item{border-bottom:1px solid var(--gray-100)}
+.faq-item:last-child{border-bottom:none}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 22px;background:none;border:none;text-align:left;cursor:pointer;transition:background .15s}
+.faq-q:hover{background:var(--gray-50)}
+.faq-q span{font-size:15px;font-weight:600;color:var(--gray-900);line-height:1.4}
+.faq-q .faq-icon{width:24px;height:24px;border-radius:50%;background:var(--gray-100);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .25s}
+.faq-q .faq-icon svg{width:14px;height:14px;color:var(--gray-600);transition:transform .25s}
+.faq-item.open .faq-icon{background:var(--yellow)}
+.faq-item.open .faq-icon svg{transform:rotate(45deg);color:var(--gray-900)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-a-inner{padding:0 22px 20px;font-size:14px;color:var(--gray-600);line-height:1.7}
+.faq-item.open .faq-a{max-height:300px}
+
+/* ── CTA FINAL ── */
+.cta-final{background:var(--dark);border-radius:var(--radius);padding:64px 40px;text-align:center}
+@media(max-width:640px){.cta-final{padding:48px 24px;border-radius:0}}
+.cta-final h2{font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:800;color:#fff;letter-spacing:-.025em;margin-bottom:12px}
+.cta-final h2 em{font-style:italic;color:var(--yellow)}
+.cta-final p{font-size:16px;color:rgba(255,255,255,.7);margin-bottom:32px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-btn-group{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--gray-900);font-size:15px;font-weight:700;padding:14px 28px;border-radius:var(--radius-sm);text-decoration:none;transition:all .2s}
+.btn-primary:hover{background:var(--yellow-hover);transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);color:#fff;font-size:14px;font-weight:600;padding:14px 24px;border-radius:var(--radius-sm);text-decoration:none;transition:all .2s;border:1px solid rgba(255,255,255,.15)}
+.btn-ghost:hover{background:rgba(255,255,255,.18)}
+
+</style>
+</head>
+<body>
+<script src="components/oferta.js"></script>
+<script src="components/navbar.js"></script>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-eyebrow">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+      Equipamentos profissionais
+    </div>
+    <h1>A maquininha certa <span>para o seu negócio</span></h1>
+    <p>Mini, Pro ou Smart — todas com as menores taxas do mercado. Sem mensalidade, sem aluguel, sem surpresa.</p>
+    <div class="hero-trust">
+      <span class="hero-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Frete grátis
+      </span>
+      <span class="hero-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Receba em 1 dia útil
+      </span>
+      <span class="hero-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Garantia de 1 ano
+      </span>
+      <span class="hero-trust-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Suporte 7 dias
+      </span>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: PLANO DE RECEBIMENTO -->
+<section class="section">
+  <div class="container">
+    <div class="step-header">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Escolha seu plano de recebimento</div>
+        <div class="step-sub">Qual prazo faz mais sentido para o seu fluxo de caixa?</div>
+      </div>
+    </div>
+
+    <div class="plans-row" id="plansRow">
+      <!-- Flash -->
+      <div class="plan-card selected" onclick="selectPlan('flash',this)" id="plan-flash">
+        <div class="radio"></div>
+        <div class="plan-badge">Mais rápido</div>
+        <div class="plan-name">Flash</div>
+        <div class="plan-rates-row">
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="flash-debito">0,75</span></div>
+            <div class="plan-rate-lbl">Débito</div>
+          </div>
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="flash-1x">2,49</span></div>
+            <div class="plan-rate-lbl">Créd. 1x</div>
+          </div>
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="flash-12x">11,99</span></div>
+            <div class="plan-rate-lbl">Créd. 12x</div>
+          </div>
+        </div>
+        <div class="plan-highlight">⚡ Receba o dinheiro em <strong>1 dia útil</strong></div>
+        <div class="plan-note">Crédito parcelado recebido em 1x<br><span class="plan-link" onclick="window.location='yelly-taxas-v4.html'">Ver tabela completa →</span></div>
+      </div>
+
+      <!-- Max -->
+      <div class="plan-card" onclick="selectPlan('max',this)" id="plan-max">
+        <div class="radio"></div>
+        <div class="plan-name">Max</div>
+        <div class="plan-rates-row">
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="max-debito">0,75</span></div>
+            <div class="plan-rate-lbl">Débito</div>
+          </div>
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="max-1x">1,99</span></div>
+            <div class="plan-rate-lbl">Créd. 1x</div>
+          </div>
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="max-12x">9,99</span></div>
+            <div class="plan-rate-lbl">Créd. 12x</div>
+          </div>
+        </div>
+        <div class="plan-highlight">📅 Receba conforme a <strong>data da compra</strong></div>
+        <div class="plan-note">Crédito recebido no prazo natural<br><span class="plan-link" onclick="window.location='yelly-taxas-v4.html'">Ver tabela completa →</span></div>
+      </div>
+
+      <!-- Economic -->
+      <div class="plan-card" onclick="selectPlan('eco',this)" id="plan-eco">
+        <div class="radio"></div>
+        <div class="plan-badge" style="background:var(--green);color:#fff">Mais barato</div>
+        <div class="plan-name">Economic</div>
+        <div class="plan-rates-row">
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="eco-debito">0,75</span></div>
+            <div class="plan-rate-lbl">Débito</div>
+          </div>
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="eco-1x">1,49</span></div>
+            <div class="plan-rate-lbl">Créd. 1x</div>
+          </div>
+          <div class="plan-rate-box">
+            <div class="plan-rate-val"><sub>%</sub><span id="eco-12x">7,99</span></div>
+            <div class="plan-rate-lbl">Créd. 12x</div>
+          </div>
+        </div>
+        <div class="plan-highlight">🏦 Receba em <strong>30 dias corridos</strong></div>
+        <div class="plan-note">Taxas mais baixas, prazo maior<br><span class="plan-link" onclick="window.location='yelly-taxas-v4.html'">Ver tabela completa →</span></div>
+      </div>
+    </div>
+
+    <!-- SECTION 2: MAQUININHAS -->
+    <div class="step-header" style="margin-top:24px">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Escolha sua maquininha</div>
+        <div class="step-sub">Todos os modelos aceitam débito, crédito, Pix e carteiras digitais</div>
+      </div>
+    </div>
+
+    <div class="machines-grid">
+      <!-- Mini -->
+      <div class="m-card" id="card-mini" onclick="selectMachine('mini',this)">
+        <div class="m-img"><img src="imgs/machine-mini.png" alt="Yelly Mini" style="max-height:160px;object-fit:contain"></div>
+        <span class="m-tag">Compacta</span>
+        <div class="m-name">Yelly Mini</div>
+        <div class="m-tagline">Leve, discreta e perfeita para quem vende em movimento</div>
+        <div class="m-price-row">
+          <div class="m-price-old">R$ 397</div>
+          <div class="m-price-main"><strong>R$ 297</strong></div>
+        </div>
+        <div class="m-price-cash">ou R$ 297 à vista</div>
+        <div class="m-shipping">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Frete grátis · chega em 1-3 dias
+        </div>
+        <button class="m-cta m-cta-secondary" onclick="event.stopPropagation();goComprar('mini')">Pedir Mini →</button>
+        <ul class="m-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Débito, crédito e Pix</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bateria de longa duração</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Conexão 4G + Wi-Fi</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> NFC (aproximação)</li>
+          <li class="miss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Impressão de comprovante</li>
+          <li class="miss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Tela touch colorida</li>
+        </ul>
+      </div>
+
+      <!-- Pro -->
+      <div class="m-card featured" id="card-pro" onclick="selectMachine('pro',this)">
+        <div class="m-best-badge">Mais vendida</div>
+        <div class="m-img"><img src="imgs/machine-pro.png" alt="Yelly Pro" style="max-height:160px;object-fit:contain"></div>
+        <span class="m-tag" style="background:var(--yellow);color:var(--gray-900)">Recomendada</span>
+        <div class="m-name">Yelly Pro</div>
+        <div class="m-tagline">A escolha certa para a maioria dos negócios — completa e sem enrolação</div>
+        <div class="m-price-row">
+          <div class="m-price-old">R$ 547</div>
+          <div class="m-price-main"><strong>R$ 397</strong></div>
+        </div>
+        <div class="m-price-cash">ou 3x de R$ 139,33 sem juros</div>
+        <div class="m-shipping">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Frete grátis · chega em 1-3 dias
+        </div>
+        <button class="m-cta m-cta-primary" onclick="event.stopPropagation();goComprar('pro')">Pedir Pro →</button>
+        <ul class="m-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Débito, crédito e Pix</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bateria de longa duração</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Conexão 4G + Wi-Fi</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> NFC (aproximação)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Impressão de comprovante</li>
+          <li class="miss"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Tela touch colorida</li>
+        </ul>
+      </div>
+
+      <!-- Smart -->
+      <div class="m-card" id="card-smart" onclick="selectMachine('smart',this)">
+        <div class="m-img"><img src="imgs/machine-smart.png" alt="Yelly Smart" style="max-height:160px;object-fit:contain"></div>
+        <span class="m-tag" style="background:var(--dark);color:#fff">Premium</span>
+        <div class="m-name">Yelly Smart</div>
+        <div class="m-tagline">Tela touch colorida, Android e funcionalidades avançadas de gestão</div>
+        <div class="m-price-row">
+          <div class="m-price-old">R$ 697</div>
+          <div class="m-price-main"><strong>R$ 497</strong></div>
+        </div>
+        <div class="m-price-cash">ou 5x de R$ 99,40 sem juros</div>
+        <div class="m-shipping">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Frete grátis · chega em 1-3 dias
+        </div>
+        <button class="m-cta m-cta-secondary" onclick="event.stopPropagation();goComprar('smart')">Pedir Smart →</button>
+        <ul class="m-features">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Débito, crédito e Pix</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Bateria de longa duração</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Conexão 4G + Wi-Fi</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> NFC (aproximação)</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Impressão de comprovante</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> Tela touch colorida</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:32px">
+      <h2 style="font-family:var(--font-display);font-size:clamp(22px,3.5vw,36px);font-weight:800;letter-spacing:-.02em">Compare os modelos</h2>
+      <p style="color:var(--gray-500);margin-top:8px;font-size:15px">Todas as diferenças em um lugar só</p>
+    </div>
+    <div class="compare-wrap">
+      <table class="compare-table">
+        <thead>
+          <tr>
+            <th>Especificação</th>
+            <th>Mini</th>
+            <th>Pro</th>
+            <th>Smart</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-row"><td colspan="4">Pagamentos</td></tr>
+          <tr><td>Débito</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Crédito (até 12x)</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Pix no débito</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>NFC (aproximação)</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Carteiras digitais</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+
+          <tr class="section-row"><td colspan="4">Conectividade</td></tr>
+          <tr><td>4G</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Wi-Fi</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Bluetooth</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+
+          <tr class="section-row"><td colspan="4">Hardware</td></tr>
+          <tr><td>Impressão de comprovante</td><td class="no">—</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+          <tr><td>Tela touch colorida</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>Android / Apps</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+          <tr><td>Bateria (horas)</td><td>~8h</td><td>~10h</td><td>~12h</td></tr>
+
+          <tr class="section-row"><td colspan="4">Preço</td></tr>
+          <tr><td>Preço à vista</td><td style="font-weight:700">R$ 297</td><td style="font-weight:700;color:var(--gray-900)">R$ 397</td><td style="font-weight:700">R$ 497</td></tr>
+          <tr><td>Frete</td><td class="yes">Grátis</td><td class="yes">Grátis</td><td class="yes">Grátis</td></tr>
+          <tr><td>Mensalidade</td><td class="yes">R$ 0</td><td class="yes">R$ 0</td><td class="yes">R$ 0</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SIMULATOR -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:32px">
+      <h2 style="font-family:var(--font-display);font-size:clamp(22px,3.5vw,36px);font-weight:800;letter-spacing:-.02em">Quanto você economiza com a Yelly?</h2>
+      <p style="color:var(--gray-500);margin-top:8px;font-size:15px">Compare com as taxas do mercado e veja a diferença real</p>
+    </div>
+    <div class="sim-wrap">
+      <div class="sim-left">
+        <label>Faturamento mensal</label>
+        <input type="text" id="sim-fat" placeholder="Ex: R$ 10.000" oninput="simCalc()" value="R$ 10.000">
+        <label>Tipo de venda predominante</label>
+        <select id="sim-tipo" onchange="simCalc()">
+          <option value="debito">Débito</option>
+          <option value="credito1x" selected>Crédito 1x</option>
+          <option value="credito12x">Crédito 12x</option>
+        </select>
+        <label>Plano de recebimento</label>
+        <select id="sim-plano" onchange="simCalc()">
+          <option value="flash" selected>Flash (1 dia útil)</option>
+          <option value="max">Max (data da compra)</option>
+          <option value="eco">Economic (30 dias)</option>
+        </select>
+      </div>
+      <div class="sim-right">
+        <div class="sim-eco-banner">
+          <div>
+            <div class="eco-label">Você economiza por mês</div>
+          </div>
+          <div class="eco-val" id="sim-economia">R$ 150</div>
+        </div>
+        <div class="sim-result-grid">
+          <div class="sim-result-card">
+            <div class="r-label">Mercado médio</div>
+            <div class="r-val" id="sim-mkt">R$ 350<sub>/mês</sub></div>
+          </div>
+          <div class="sim-result-card highlight">
+            <div class="r-label">Com Yelly</div>
+            <div class="r-val" id="sim-yelly">R$ 199<sub>/mês</sub></div>
+          </div>
+        </div>
+        <div class="sim-note">
+          Cálculo baseado em faturamento mensal com taxa de mercado de 3,5% no crédito à vista.<br>
+          Valores aproximados para fins ilustrativos.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="container" style="max-width:720px">
+    <div style="text-align:center;margin-bottom:32px">
+      <h2 style="font-family:var(--font-display);font-size:clamp(22px,3.5vw,36px);font-weight:800;letter-spacing:-.02em">Dúvidas frequentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Tem mensalidade ou taxa de aluguel?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Não. A Yelly não cobra mensalidade, aluguel nem taxa de adesão. Você compra a maquininha uma vez e paga apenas as taxas sobre as transações realizadas.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Qual a diferença entre Mini, Pro e Smart?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">A Mini é compacta e ideal para quem vende em movimento. A Pro adiciona impressão de comprovante e é a mais vendida. A Smart tem tela touch colorida, Android integrado e é ideal para negócios que precisam de mais controle e gestão.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Posso mudar o plano de recebimento depois?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Sim. Você pode trocar o plano (Flash, Max ou Economic) diretamente pelo aplicativo Yelly, sem burocracia. A mudança vale para as transações realizadas após a troca.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>A maquininha funciona sem internet?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">As maquininhas Yelly têm chip 4G integrado, então funcionam mesmo sem Wi-Fi. Enquanto houver sinal de celular na região, você consegue vender normalmente.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span>Qual a garantia dos equipamentos?</span>
+          <div class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Todos os modelos têm garantia de 1 ano contra defeitos de fabricação. Em caso de problema, a Yelly substitui o equipamento sem custo adicional.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section style="padding:40px 0 80px">
+  <div class="container">
+    <div class="cta-final">
+      <h2>Pronto para <em>vender mais</em> pagando menos?</h2>
+      <p>Escolha seu modelo e comece em minutos. Frete grátis para todo o Brasil.</p>
+      <div class="cta-btn-group">
+        <a href="yelly-comprar.html" class="btn-primary">Pedir minha maquininha ↗</a>
+        <a href="https://wa.me/5511999999999?text=Ol%C3%A1%2C+quero+saber+mais+sobre+as+maquininhas+Yelly" class="btn-ghost" target="_blank" rel="noopener">Falar pelo WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<script>
+// PLAN SELECTION
+let selectedPlan = 'flash';
+function selectPlan(plan, el) {
+  selectedPlan = plan;
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  simCalc();
+}
+
+// MACHINE SELECTION
+function selectMachine(machine, el) {
+  document.querySelectorAll('.m-card').forEach(c => {
+    c.style.borderColor = '';
+    c.style.boxShadow = '';
+  });
+  el.style.borderColor = 'var(--yellow)';
+  el.style.boxShadow = '0 0 0 1px var(--yellow), 0 8px 32px rgba(255,214,0,.18)';
+}
+
+function goComprar(machine) {
+  window.location.href = 'yelly-comprar.html?machine=' + machine;
+}
+
+// SIMULATOR
+const rates = {
+  flash:  { debito:0.0075, credito1x:0.0249, credito12x:0.1199 },
+  max:    { debito:0.0075, credito1x:0.0199, credito12x:0.0999 },
+  eco:    { debito:0.0075, credito1x:0.0149, credito12x:0.0799 },
+};
+const marketRates = { debito:0.018, credito1x:0.035, credito12x:0.145 };
+
+function simCalc() {
+  const inp = document.getElementById('sim-fat');
+  let raw = inp.value.replace(/\D/g,'');
+  let val = parseInt(raw) || 10000;
+
+  const tipo = document.getElementById('sim-tipo').value;
+  const plano = document.getElementById('sim-plano').value;
+
+  const yellyRate = rates[plano][tipo];
+  const mktRate = marketRates[tipo];
+
+  const yellyCost = val * yellyRate;
+  const mktCost = val * mktRate;
+  const eco = mktCost - yellyCost;
+
+  const fmt = n => 'R$ ' + Math.round(n).toLocaleString('pt-BR');
+  document.getElementById('sim-mkt').innerHTML = fmt(mktCost) + '<sub>/mês</sub>';
+  document.getElementById('sim-yelly').innerHTML = fmt(yellyCost) + '<sub>/mês</sub>';
+  document.getElementById('sim-economia').textContent = fmt(eco);
+}
+
+// FAQ
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// INIT
+simCalc();
+</script>
+<script src="components/footer.js"></script>
+</body>
+</html>
