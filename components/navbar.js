@@ -33,7 +33,7 @@
   const html = `
 <header class="navbar" id="yelly-navbar">
   <div class="nav-container">
-    <a href="yelly-homepage.html" class="nav-logo">
+    <a href="index.html" class="nav-logo">
       <div class="nav-logo-icon">Y</div>Yelly
     </a>
     <nav class="nav-links">

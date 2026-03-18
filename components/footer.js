@@ -23,7 +23,7 @@ footer.yelly-footer{background:var(--dark);color:rgba(255,255,255,.6);font-size:
     <div class="footer-inner">
       <div class="footer-logo">Yelly</div>
       <div class="footer-links">
-        <a href="yelly-homepage.html">Início</a>
+        <a href="index.html">Início</a>
         <a href="yelly-maquininha-v4.html">Maquininha</a>
         <a href="yelly-taxas-v4.html">Taxas</a>
         <a href="yelly-como-funciona.html">Como Funciona</a>

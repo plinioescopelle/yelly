@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<title>Yelly - A Maquininha com Taxa Baixa de Verdade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --font-body:'Inter',sans-serif;
+  --font-display:'Outfit',sans-serif;
+  --yellow:#FFD600;--yellow-light:#FFF8CC;--yellow-hover:#ffe333;--yellow-bg:#fffce6;
+  --dark:#1a1a2e;--dark-800:#16213e;
+  --gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#e5e5e5;--gray-300:#d4d4d4;
+  --gray-400:#a3a3a3;--gray-500:#737373;--gray-600:#525252;--gray-700:#404040;--gray-900:#171717;
+  --bg:#fafaf8;--radius:16px;--radius-sm:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--font-body);background:var(--bg);color:var(--gray-900);line-height:1.6;-webkit-font-smoothing:antialiased}
+::selection{background:var(--yellow);color:var(--gray-900)}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer}
+a{color:inherit;text-decoration:none}
+
+/* ── CONTAINER ── */
+.container{max-width:1200px;margin:0 auto;padding:0 16px}
+@media(min-width:640px){.container{padding:0 24px}}
+@media(min-width:1024px){.container{padding:0 32px}}
+
+
+/* ── HERO BG ── */
+.hero-wrap{position:relative;overflow:hidden}
+.hero-bg{position:absolute;top:0;left:0;width:100%;height:100%;z-index:-1;overflow:hidden;pointer-events:none}
+.hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.4}
+.hero-bg .ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent,rgba(250,250,248,.85) 65%,var(--bg))}
+
+/* ── HERO ── */
+.hero{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding:80px 0 64px;min-height:520px}
+@media(max-width:768px){.hero{grid-template-columns:1fr;text-align:center;padding:56px 0 40px;min-height:auto}}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--yellow-light);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:8px 20px;border-radius:100px;margin-bottom:20px}
+.hero h1{font-family:var(--font-display);font-size:clamp(30px,4.5vw,54px);font-weight:800;line-height:1.08;letter-spacing:-.025em;margin-bottom:16px}
+.hero-sub{font-size:17px;color:var(--gray-500);max-width:440px;line-height:1.65;margin-bottom:20px}
+@media(max-width:768px){.hero-sub{margin:0 auto 20px}}
+.hero-bullets{list-style:none;margin-bottom:28px;display:flex;flex-direction:column;gap:10px}
+@media(max-width:768px){.hero-bullets{display:none}}
+.hero-bullets li{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500;color:var(--gray-700)}
+.bullet-check{width:22px;height:22px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.bullet-check svg{width:12px;height:12px;color:var(--gray-900)}
+.hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+@media(max-width:768px){.hero-ctas{justify-content:center}}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--gray-900);font-weight:700;font-size:15px;padding:14px 28px;border-radius:var(--radius-sm);border:none;transition:all .2s}
+.btn-primary:hover{background:var(--yellow-hover);transform:translateY(-1px)}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--gray-700);font-weight:600;font-size:15px;padding:14px 24px;border-radius:var(--radius-sm);border:1.5px solid var(--gray-200);transition:all .2s}
+.btn-secondary:hover{border-color:var(--gray-400);color:var(--gray-900)}
+.hero-proof{font-size:13px;color:var(--gray-400);margin-top:16px}
+.hero-proof strong{color:var(--gray-700)}
+.hero-right{position:relative;display:flex;justify-content:center;align-items:stretch}
+@media(max-width:768px){.hero-right{display:flex;margin-top:24px;max-height:260px}}
+.hero-img-wrap{border-radius:var(--radius);overflow:hidden;flex:1;display:flex}
+.hero-right img{width:100%;max-height:420px;object-fit:cover;display:block}
+.hero-rate-badge{position:absolute;bottom:16px;right:0;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:16px 24px;box-shadow:0 8px 32px rgba(0,0,0,.1);text-align:center}
+.hero-rate-badge .lbl{font-size:12px;color:var(--gray-500)}
+.hero-rate-badge .val{font-family:var(--font-display);font-size:42px;font-weight:800;color:var(--yellow);line-height:1}
+.hero-rate-badge .val sub{font-size:18px}
+
+/* ── TRUST STRIP ── */
+.trust-strip{padding:40px 0;background:var(--dark)}
+.trust-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+@media(max-width:768px){.trust-grid{grid-template-columns:repeat(2,1fr);gap:16px}}
+.trust-item{text-align:center}
+.trust-icon{width:36px;height:36px;margin:0 auto 8px;color:var(--yellow)}
+.trust-item h4{font-size:14px;font-weight:700;margin-bottom:2px;color:#fff}
+.trust-item p{font-size:12px;color:var(--gray-400);line-height:1.4}
+
+/* ── SECTION TITLES ── */
+.sec-badge{display:block;font-size:11px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;color:var(--gray-400);margin-bottom:8px;text-align:center}
+.sec-title{font-family:var(--font-display);font-size:clamp(24px,3.5vw,40px);font-weight:800;text-align:center;margin-bottom:12px;letter-spacing:-.02em}
+.sec-sub{font-size:16px;color:var(--gray-500);text-align:center;max-width:520px;margin:0 auto 40px;line-height:1.6}
+
+/* ── CALCULATOR ── */
+.section-calc{padding:72px 0}
+.calc-wrap{display:grid;grid-template-columns:1fr 1fr;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;max-width:880px;margin:0 auto}
+@media(max-width:768px){.calc-wrap{grid-template-columns:1fr}}
+.calc-left{padding:40px;border-right:1px solid var(--gray-100)}
+@media(max-width:768px){.calc-left{padding:28px;border-right:none;border-bottom:1px solid var(--gray-100)}}
+.calc-left h3{font-family:var(--font-display);font-size:21px;font-weight:700;margin-bottom:6px}
+.calc-left .calc-desc{font-size:14px;color:var(--gray-500);margin-bottom:24px}
+.calc-label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px}
+.calc-input{width:100%;padding:14px 16px;border:1.5px solid var(--gray-200);border-radius:var(--radius-sm);font-size:20px;font-weight:700;font-family:var(--font-display);color:var(--gray-900);transition:border .2s;height:56px}
+.calc-input:focus{outline:none;border-color:var(--yellow)}
+.calc-right{padding:40px;background:var(--dark);color:#fff;display:flex;flex-direction:column;justify-content:center}
+@media(max-width:768px){.calc-right{padding:28px}}
+.calc-result-label{font-size:13px;color:var(--gray-400);margin-bottom:8px}
+.calc-savings{font-family:var(--font-display);font-size:clamp(32px,4vw,52px);font-weight:800;color:var(--yellow);line-height:1;margin-bottom:20px}
+.calc-breakdown{background:rgba(255,255,255,.08);border-radius:var(--radius-sm);padding:16px;margin-bottom:24px}
+.calc-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;font-size:13px}
+.calc-row:not(:last-child){border-bottom:1px solid rgba(255,255,255,.08)}
+.calc-row .clabel{color:var(--gray-400)}
+.calc-row .cval{font-weight:600;color:#fff}
+.calc-row .cval.hi{color:var(--yellow)}
+.calc-cta{display:inline-flex;align-items:center;gap:6px;background:var(--yellow);color:var(--gray-900);font-weight:700;font-size:14px;padding:12px 20px;border-radius:var(--radius-sm);border:none;transition:all .2s;width:fit-content}
+.calc-cta:hover{background:var(--yellow-hover)}
+
+/* ── HOW IT WORKS ── */
+.section-how{padding:72px 0;background:var(--gray-50)}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+@media(max-width:768px){.steps-grid{grid-template-columns:1fr;max-width:400px;margin:0 auto}}
+.step-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:32px 28px;transition:all .2s}
+.step-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.step-num{width:48px;height:48px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:22px;font-weight:800;color:var(--gray-900);margin-bottom:20px}
+.step-card h3{font-family:var(--font-display);font-size:19px;font-weight:700;margin-bottom:8px}
+.step-card p{font-size:14px;color:var(--gray-500);line-height:1.6}
+.step-tag{display:inline-block;background:var(--yellow-light);color:var(--dark);font-size:11px;font-weight:700;padding:4px 10px;border-radius:6px;margin-top:12px}
+
+/* ── TRANSPARENCY ── */
+.section-transparency{padding:72px 0}
+.trans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:768px){.trans-grid{grid-template-columns:1fr}}
+.trans-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:32px 28px;transition:all .2s}
+.trans-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.05);border-color:var(--gray-300)}
+.trans-card .t-icon{width:48px;height:48px;border-radius:12px;background:var(--yellow-light);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.trans-card .t-icon svg{width:24px;height:24px;color:var(--gray-700)}
+.trans-card h3{font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:8px}
+.trans-card p{font-size:14px;color:var(--gray-500);line-height:1.6}
+.trans-cta{text-align:center;margin-top:40px}
+.link-btn{display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:600;color:var(--dark);border-bottom:2px solid var(--yellow);padding-bottom:2px}
+.link-btn:hover{color:var(--gray-600)}
+
+/* ── BENEFITS ── */
+.section-benefits{padding:72px 0;background:var(--gray-50)}
+.benefits-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+@media(max-width:1024px){.benefits-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.benefits-grid{grid-template-columns:1fr}}
+.benefit-card{background:#fff;border:1px solid var(--gray-100);border-radius:var(--radius);padding:28px 24px;transition:all .2s}
+.benefit-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.05)}
+.benefit-card .b-icon{width:40px;height:40px;border-radius:10px;background:var(--yellow-light);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.benefit-card .b-icon svg{width:20px;height:20px;color:var(--gray-700)}
+.benefit-card h3{font-family:var(--font-display);font-size:16px;font-weight:700;margin-bottom:4px}
+.benefit-card p{font-size:13px;color:var(--gray-500);line-height:1.5}
+
+/* ── COMPARISON ── */
+.section-comparison{padding:72px 0}
+.comp-wrap{max-width:800px;margin:0 auto;background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+.comp-table{width:100%;border-collapse:collapse}
+.comp-table th{background:var(--gray-50);padding:16px 20px;font-size:13px;font-weight:600;text-align:left;color:var(--gray-600);border-bottom:2px solid var(--gray-200)}
+.comp-table th:first-child{text-align:left}
+.comp-table th.hi{background:var(--yellow-bg);color:var(--dark)}
+.comp-table td{padding:14px 20px;font-size:14px;text-align:left;border-bottom:1px solid var(--gray-100)}
+.comp-table td:first-child{text-align:left;color:var(--gray-600);font-weight:500}
+.comp-table td.hi{background:var(--yellow-bg);font-weight:700;color:var(--dark)}
+.comp-table tr:last-child td{border-bottom:none}
+.c-yes{color:#22c55e;font-weight:600}
+.c-no{color:#ef4444;font-weight:600}
+.c-med{color:var(--gray-400)}
+
+/* ── TESTIMONIALS ── */
+.section-testimonials{padding:72px 0;background:var(--gray-50)}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+@media(max-width:768px){.test-grid{grid-template-columns:1fr}}
+.test-card{background:#fff;border:1px solid var(--gray-200);border-radius:var(--radius);padding:28px 24px}
+.test-stars{display:flex;gap:3px;margin-bottom:14px;font-size:16px}
+.test-text{font-size:15px;color:var(--gray-700);line-height:1.65;margin-bottom:20px;font-style:italic}
+.test-author{display:flex;align-items:center;gap:12px}
+.test-avatar{width:44px;height:44px;border-radius:50%;background:var(--yellow-light);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--dark);flex-shrink:0}
+.test-name{font-size:14px;font-weight:600}
+.test-biz{font-size:12px;color:var(--gray-400)}
+
+/* ── FAQ ── */
+.section-faq{padding:72px 0}
+.faq-layout{display:grid;grid-template-columns:1fr 1.5fr;gap:48px;align-items:start;max-width:900px;margin:0 auto}
+@media(max-width:768px){.faq-layout{grid-template-columns:1fr;gap:24px}}
+.faq-left h2{font-family:var(--font-display);font-size:28px;font-weight:800;margin-bottom:8px}
+.faq-left p{font-size:14px;color:var(--gray-500);line-height:1.6}
+.faq-more{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:600;color:var(--dark);margin-top:16px;border-bottom:2px solid var(--yellow);padding-bottom:2px}
+.faq-item{border-bottom:1px solid var(--gray-200)}
+.faq-q{width:100%;text-align:left;padding:18px 0;background:none;border:none;font-size:15px;font-weight:600;color:var(--gray-900);display:flex;align-items:center;justify-content:space-between;gap:16px}
+.faq-q svg{flex-shrink:0;transition:transform .25s;color:var(--gray-400)}
+.faq-q.open svg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease;font-size:14px;color:var(--gray-500);line-height:1.65}
+.faq-a.open{max-height:300px;padding-bottom:18px}
+
+/* ── CTA FINAL ── */
+.section-cta-final{padding:88px 0;background:var(--dark);text-align:center}
+.cta-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,214,0,.15);color:var(--yellow);font-size:12px;font-weight:600;padding:6px 16px;border-radius:100px;margin-bottom:20px;border:1px solid rgba(255,214,0,.3)}
+.section-cta-final h2{font-family:var(--font-display);font-size:clamp(28px,4vw,48px);font-weight:800;color:#fff;margin-bottom:12px;letter-spacing:-.02em}
+.section-cta-final .cta-sub{font-size:17px;color:var(--gray-400);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-big-btn{display:inline-flex;align-items:center;gap:10px;background:var(--yellow);color:var(--gray-900);font-family:var(--font-display);font-size:18px;font-weight:800;padding:18px 40px;border-radius:var(--radius);border:none;transition:all .25s;margin-bottom:24px}
+.cta-big-btn:hover{background:var(--yellow-hover);transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,214,0,.35)}
+.cta-urgency{font-size:14px;color:var(--gray-500);margin-bottom:28px}
+.cta-urgency svg{display:inline;width:15px;height:15px;vertical-align:-2px;margin-right:4px;color:var(--yellow)}
+.cta-trust-row{display:flex;justify-content:center;gap:28px;flex-wrap:wrap}
+.cta-trust-row span{font-size:13px;color:var(--gray-500);display:flex;align-items:center;gap:6px}
+.cta-trust-row span svg{width:15px;height:15px;color:var(--yellow)}
+
+
+/* ── STICKY CTA ── */
+.sticky-cta{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);z-index:50;background:var(--dark);color:#fff;border-radius:16px;padding:14px 16px 14px 20px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 40px rgba(0,0,0,.3);max-width:600px;width:calc(100% - 32px);transition:all .3s;overflow:hidden}
+@media(max-width:480px){.sticky-cta{padding:12px 12px 12px 16px;gap:10px}}
+.cta-product{display:flex;align-items:center;gap:8px;position:relative;z-index:1;flex:1;min-width:0}
+.cta-picon{width:16px;height:16px;color:var(--yellow);flex-shrink:0}
+.cta-info{min-width:0}
+.cta-pname{font-family:var(--font-display);font-size:13px;font-weight:700;color:var(--yellow)}
+.cta-pplan{font-size:11px;color:var(--gray-500)}
+.cta-price-row{display:flex;align-items:baseline;gap:6px;margin-top:2px;flex-wrap:wrap}
+.cta-pnew{font-family:var(--font-display);font-size:14px;font-weight:800;color:#fff}
+.cta-pinstall{font-size:10px;color:var(--gray-400)}
+.sticky-cta .cta-btn{flex-shrink:0;background:var(--yellow);color:var(--gray-900);font-weight:700;font-size:13px;padding:11px 20px;border-radius:var(--radius-sm);border:none;white-space:nowrap;display:flex;align-items:center;gap:6px;transition:all .3s;position:relative;z-index:1;overflow:hidden}
+.sticky-cta .cta-btn:hover{background:var(--yellow-hover)}
+.sticky-cta .cta-btn svg{width:16px;height:16px}
+.sticky-cta::before{content:'';position:absolute;top:-50%;left:-60%;width:40%;height:200%;background:linear-gradient(90deg,transparent,rgba(255,214,0,.12),transparent);transform:skewX(-20deg);opacity:0;z-index:0;pointer-events:none}
+.sticky-cta:hover::before{opacity:1;animation:barShine 1s ease forwards}
+@keyframes barShine{0%{left:-60%}100%{left:120%}}
+.sticky-cta:hover{box-shadow:0 8px 40px rgba(0,0,0,.25),0 0 28px rgba(255,214,0,.3)}
+
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .6s ease forwards}
+.d1{animation-delay:.1s;opacity:0}.d2{animation-delay:.2s;opacity:0}.d3{animation-delay:.3s;opacity:0}.d4{animation-delay:.4s;opacity:0}
+</style>
+</head>
+<body>
+<script src="components/oferta.js"></script>
+<script src="components/navbar.js"></script>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero-wrap">
+  <div class="hero-bg">
+    <img src="./yelly replit/Yelly Taxas_files/hero-mesh.png" alt="">
+    <div class="ov"></div>
+  </div>
+  <div class="container">
+    <section class="hero">
+      <div>
+        <div class="hero-badge fade-up">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Maquininha com taxa baixa de verdade
+        </div>
+        <h1 class="fade-up d1">Receba Mais,<br>Pague Menos de Taxa</h1>
+        <p class="hero-sub fade-up d2">Maquininha com as menores taxas + Internet Grátis para Sempre. Sem aluguel, sem surpresas.</p>
+        <ul class="hero-bullets fade-up d2">
+          <li>
+            <span class="bullet-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
+            Menor taxa do mercado — a partir de <strong>0,75%</strong>
+          </li>
+          <li>
+            <span class="bullet-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
+            Sem aluguel + Garantia vitalícia
+          </li>
+          <li>
+            <span class="bullet-check"><svg fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></span>
+            Internet grátis para sempre
+          </li>
+        </ul>
+        <div class="hero-ctas fade-up d3">
+          <a href="yelly-comprar.html" class="btn-primary">
+            Solicitar Minha Maquininha
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="yelly-taxas-v4.html" class="btn-secondary">Ver Taxas</a>
+        </div>
+        <p class="hero-proof fade-up d4">Mais de <strong>50 mil</strong> negócios já economizam com Yelly</p>
+      </div>
+      <div class="hero-right">
+        <div class="hero-img-wrap">
+          <img src="imgs/beneficios1Desktop.webp" alt="Yelly" style="width:100%;height:100%;object-fit:cover;display:block">
+        </div>
+        <div class="hero-rate-badge">
+          <div class="lbl">Taxas a partir de</div>
+          <div class="val">0,75<sub>%</sub></div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═══ TRUST STRIP ═══ -->
+<div class="trust-strip">
+  <div class="container">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <h4>50 mil+ clientes</h4>
+        <p>Negócios que já economizam</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+        <h4>0% de juro</h4>
+        <p>No parcelamento, sem surpresa</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h4>Garantia vitalícia</h4>
+        <p>Quebrou? Trocamos de graça</p>
+      </div>
+      <div class="trust-item">
+        <svg class="trust-icon" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+        <h4>Internet grátis</h4>
+        <p>Incluída na maquininha, sempre</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ CALCULATOR ═══ -->
+<section class="section-calc" id="calculadora">
+  <div class="sec-badge">Calculadora</div>
+  <h2 class="sec-title">Quanto você está deixando no bolso?</h2>
+  <p class="sec-sub">Descubra quanto você perde por mês com taxas altas e quanto economizaria com Yelly.</p>
+  <div class="calc-wrap">
+    <div class="calc-left">
+      <h3>Simule sua economia</h3>
+      <p class="calc-desc">Digite seu faturamento mensal e veja o quanto você economiza imediatamente.</p>
+      <label class="calc-label">Seu faturamento mensal</label>
+      <input type="text" class="calc-input" id="calc-fat" value="R$ 10.000" oninput="calcUpdate()">
+    </div>
+    <div class="calc-right">
+      <div class="calc-result-label">Com Yelly, você economiza por mês:</div>
+      <div class="calc-savings" id="calc-savings">R$ 275,00</div>
+      <div class="calc-breakdown">
+        <div class="calc-row">
+          <span class="clabel">Taxa média mercado (3,5%)</span>
+          <span class="cval" id="calc-mkt">R$ 350,00</span>
+        </div>
+        <div class="calc-row">
+          <span class="clabel">Com Yelly (0,75%)</span>
+          <span class="cval" id="calc-yelly">R$ 75,00</span>
+        </div>
+        <div class="calc-row">
+          <span class="clabel">Economia mensal</span>
+          <span class="cval hi" id="calc-eco">R$ 275,00</span>
+        </div>
+      </div>
+      <a href="yelly-taxas-v4.html" class="calc-cta">
+        Ver todos os planos
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="section-how" id="como-funciona">
+  <div class="container">
+    <div class="sec-badge">Simples assim</div>
+    <h2 class="sec-title">Comece a vender em 3 passos</h2>
+    <p class="sec-sub">Sem burocracia, sem contrato, sem complicação. Aprovação em minutos.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <h3>Escolha seu Plano</h3>
+        <p>Flash (na hora), Max (1 dia útil) ou Economic (melhor taxa). Cada plano tem uma taxa diferente — você decide quando quer receber.</p>
+        <span class="step-tag">Flash · Max · Economic</span>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <h3>Pedir sua Maquininha</h3>
+        <p>Aprovação em minutos, 100% online. Mini, Pro ou Smart — com até 50% de desconto no equipamento.</p>
+        <span class="step-tag">Mini · Pro · Smart</span>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <h3>Comece a Vender</h3>
+        <p>Maquininha chega em 2-3 dias. Ative em minutos e comece a receber — com internet grátis inclusa, para sempre.</p>
+        <span class="step-tag">Aprovação em minutos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- ═══ TRANSPARENCY ═══ -->
+<section class="section-transparency">
+  <div class="sec-badge">Transparência</div>
+  <h2 class="sec-title">Saiba exatamente o quanto vai receber</h2>
+  <p class="sec-sub">Sem taxas escondidas, sem surpresas. Na Yelly, tudo é claro desde o início.</p>
+  <div class="trans-grid">
+    <div class="trans-card">
+      <div class="t-icon">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      </div>
+      <h3>Zero Pegadinhas</h3>
+      <p>Sem taxa oculta, sem surpresa no extrato. Você vê exatamente o que vai pagar antes de cada venda.</p>
+    </div>
+    <div class="trans-card">
+      <div class="t-icon">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/></svg>
+      </div>
+      <h3>Cálculo Cristalino</h3>
+      <p>Use o simulador para calcular exatamente quanto vai receber em cada venda, antes de processar.</p>
+    </div>
+    <div class="trans-card">
+      <div class="t-icon">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg>
+      </div>
+      <h3>Receba na Hora</h3>
+      <p>Flash, Max ou Economic: você escolhe quando quer o dinheiro na conta. Sem taxas extras por urgência.</p>
+    </div>
+  </div>
+  <div class="trans-cta">
+    <a href="yelly-taxas-v4.html" class="link-btn">
+      Ver todas as taxas detalhadas
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- ═══ BENEFITS ═══ -->
+<section class="section-benefits">
+  <div class="container">
+    <div class="sec-badge">Vantagens</div>
+    <h2 class="sec-title">Tudo que você precisa para vender mais</h2>
+    <p class="sec-sub">Diferenciais reais que fazem diferença no seu bolso todo mês.</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="b-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg>
+        </div>
+        <h3>Internet Grátis para Sempre</h3>
+        <p>Sem mensalidade, incluída na sua maquininha. Única no mercado com chip grátis.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Garantia Vitalícia</h3>
+        <p>Quebrou? Trocamos de graça, sem burocracia. Para sempre, não só por 1 ano.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+        </div>
+        <h3>Sem Aluguel</h3>
+        <p>Você é dono da máquina. Pague uma vez e use para sempre, sem mensalidade.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <h3>Atendimento 7 Dias</h3>
+        <p>Via WhatsApp, humanizado, quando você precisar. Resposta rápida, sem robô.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><path d="M1 10h22"/></svg>
+        </div>
+        <h3>Pix + Todas as Bandeiras</h3>
+        <p>Crédito, débito, Pix, vale-refeição, aproximação. Aceita tudo sem custo extra.</p>
+      </div>
+      <div class="benefit-card">
+        <div class="b-icon">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </div>
+        <h3>Sem Fidelização</h3>
+        <p>Sem contrato longo, sem multa. Parou de usar? Devolveu, resolvido.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- ═══ COMPARISON ═══ -->
+<section class="section-comparison">
+  <div class="sec-badge">Comparativo</div>
+  <h2 class="sec-title">Como Yelly se compara?</h2>
+  <p class="sec-sub">Veja por que mais de 50 mil negócios escolheram Yelly.</p>
+  <div class="comp-wrap">
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th style="text-align:left">Recurso</th>
+          <th class="hi">✦ Yelly</th>
+          <th>Concorrente Médio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Taxa mínima</td>
+          <td class="hi">0,75% (Pix)</td>
+          <td class="c-med">~2,50%</td>
+        </tr>
+        <tr>
+          <td>Aluguel mensal</td>
+          <td class="hi"><span class="c-yes">✓</span> Sem aluguel</td>
+          <td><span class="c-no">✗</span> Até R$ 99/mês</td>
+        </tr>
+        <tr>
+          <td>Garantia</td>
+          <td class="hi"><span class="c-yes">✓</span> Vitalícia</td>
+          <td class="c-med">1-2 anos</td>
+        </tr>
+        <tr>
+          <td>Internet grátis</td>
+          <td class="hi"><span class="c-yes">✓</span> Sempre inclusa</td>
+          <td><span class="c-no">✗</span> Não inclui</td>
+        </tr>
+        <tr>
+          <td>Aprovação</td>
+          <td class="hi"><span class="c-yes">✓</span> Minutos</td>
+          <td class="c-med">Dias ou semanas</td>
+        </tr>
+        <tr>
+          <td>Fidelização</td>
+          <td class="hi"><span class="c-yes">✓</span> Sem contrato</td>
+          <td><span class="c-no">✗</span> 12-24 meses</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="section-testimonials">
+  <div class="container">
+    <div class="sec-badge">Depoimentos</div>
+    <h2 class="sec-title">Veja quem já economiza com Yelly</h2>
+    <p class="sec-sub">Clientes reais, resultados reais.</p>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">⭐⭐⭐⭐⭐</div>
+        <p class="test-text">"Reduzi a taxa de 3,5% para 2,2%. Isso me deu R$ 500 a mais por mês. Agora sei exatamente quanto vou receber em cada venda."</p>
+        <div class="test-author">
+          <div class="test-avatar">J</div>
+          <div>
+            <div class="test-name">João Silva</div>
+            <div class="test-biz">Sorveteria · São Paulo</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">⭐⭐⭐⭐⭐</div>
+        <p class="test-text">"Sem contrato, sem surpresa. Finalmente confio nas minhas taxas. A internet grátis economiza mais R$ 100 por mês pra mim."</p>
+        <div class="test-author">
+          <div class="test-avatar">M</div>
+          <div>
+            <div class="test-name">Maria Oliveira</div>
+            <div class="test-biz">Loja de Roupas · Rio de Janeiro</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">⭐⭐⭐⭐⭐</div>
+        <p class="test-text">"Aprovação foi rápida, maquininha chegou em 2 dias. Agora aceito Pix direto na maquininha e vendo muito mais."</p>
+        <div class="test-author">
+          <div class="test-avatar">C</div>
+          <div>
+            <div class="test-name">Carlos Pereira</div>
+            <div class="test-biz">Restaurante · Belo Horizonte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- ═══ FAQ ═══ -->
+<section class="section-faq" id="faq">
+  <div class="faq-layout">
+    <div class="faq-left">
+      <h2>Ficou alguma dúvida?</h2>
+      <p>Respondemos as perguntas mais frequentes para você tomar a melhor decisão com confiança.</p>
+      <a href="yelly-faq.html" class="faq-more">Ver todas as perguntas →</a>
+    </div>
+    <div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Preciso de CNPJ para usar a Yelly?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">Não! Funciona com CPF, MEI ou PJ. Cadastro rápido em 5 minutos, sem burocracia e sem papelada.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Qual é a taxa de juros?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">Zero. Você não paga juro de parcelamento. Paga apenas a taxa sobre a venda — exatamente o que você vê na tabela de taxas.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">E se a máquina quebrar?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">Garantia vitalícia: a gente troca de graça, sem burocracia. Não importa quando — você sempre terá uma maquininha funcionando.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Tem contrato com fidelização?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">Não. Você pode parar quando quiser, sem multa e sem complicação. Você está sempre no controle.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">Como funciona a aprovação?<svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+        <div class="faq-a">100% online, em minutos. Você preenche o cadastro, recebe aprovação rápida e a maquininha chega em 2-3 dias úteis com frete grátis.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- ═══ CTA FINAL ═══ -->
+<section class="section-cta-final">
+  <div class="container">
+    <div class="cta-badge">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Oferta Limitada
+    </div>
+    <h2>Está pronto para aumentar seus lucros?</h2>
+    <p class="cta-sub">Aprovação rápida, sem burocracia. Maquininha em 2-3 dias úteis.</p>
+    <a href="yelly-comprar.html" class="cta-big-btn">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Solicitar Minha Maquininha Agora
+    </a>
+    <p class="cta-urgency">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l2 2"/></svg>
+      Primeiros 100 solicitantes ganham Internet grátis por 1 ano extra
+    </p>
+    <div class="cta-trust-row">
+      <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Sem compromisso</span>
+      <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Garantia Vitalícia</span>
+      <span><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>Suporte 7 dias</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ STICKY CTA ═══ -->
+<div class="sticky-cta">
+  <div class="cta-product">
+    <svg class="cta-picon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+    <div class="cta-info">
+      <div class="cta-pname">Yelly Pro · Plano Flash</div>
+      <div class="cta-price-row">
+        <span class="cta-pnew">R$ 397,00</span>
+        <span class="cta-pinstall">ou 12x R$ 33,08</span>
+      </div>
+    </div>
+  </div>
+  <a href="yelly-comprar.html" class="cta-btn">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+    Pedir agora
+  </a>
+</div>
+
+
+<script>
+// ═══ CALCULADORA ═══
+function calcUpdate() {
+  const inp = document.getElementById('calc-fat');
+  let raw = inp.value.replace(/\D/g,'');
+  let val = parseInt(raw) || 0;
+  if(raw) inp.value = 'R$ ' + val.toLocaleString('pt-BR');
+  const mkt = val * 0.035;
+  const yelly = val * 0.0075;
+  const eco = mkt - yelly;
+  const fmt = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+  document.getElementById('calc-mkt').textContent = fmt(mkt);
+  document.getElementById('calc-yelly').textContent = fmt(yelly);
+  document.getElementById('calc-eco').textContent = fmt(eco);
+  document.getElementById('calc-savings').textContent = fmt(eco);
+}
+calcUpdate();
+
+// ═══ FAQ ═══
+function toggleFaq(btn) {
+  const a = btn.nextElementSibling;
+  const open = btn.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(b => { b.classList.remove('open'); b.nextElementSibling.classList.remove('open'); });
+  if(!open) { btn.classList.add('open'); a.classList.add('open'); }
+}
+
+</script>
+<script src="components/footer.js"></script>
+</body>
+</html>
